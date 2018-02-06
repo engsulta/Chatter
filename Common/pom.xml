@@ -4,12 +4,23 @@
     <parent>
         <groupId>com.JDevsul</groupId>
         <artifactId>ChatPom</artifactId>
-        <version>1.0.0-MessengerDemo</version>
+        <version>1.0.1-MessengerDemo</version>
     </parent>
     
     <artifactId>Common</artifactId>
     <version>1.0.1-MessengerDemo</version>
+    
     <packaging>jar</packaging>
+    
+    <dependencies>
+        <!--  oracle database library -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+	<artifactId>ojdbc14</artifactId>
+	<version>10.2.0.4.0</version>
+
+        </dependency>
+    </dependencies>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
