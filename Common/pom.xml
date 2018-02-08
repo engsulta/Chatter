@@ -6,38 +6,32 @@
         <artifactId>ChatPom</artifactId>
         <version>2.0.3-MessengerDemo</version>
     </parent>
-    
+     <groupId>com.JDevsul</groupId>
     <artifactId>Common</artifactId>
-    
+      <version>2.0.3-MessengerDemo</version>
+
     <packaging>jar</packaging>
     
     <dependencies>
-        <dependency>
-              <groupId>com.jfoenix</groupId>
-  <artifactId>jfoenix</artifactId>
-  <version>9.0.1</version>
+           <!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
+<dependency>
+    <groupId>com.jfoenix</groupId>
+    <artifactId>jfoenix</artifactId>
+    <version>1.6.0</version>
+</dependency>
 
-        </dependency>
-        <!--  oracle database library -->
+<!-- https://mvnrepository.com/artifact/de.jensd/fontawesomefx -->
+<dependency>
+    <groupId>de.jensd</groupId>
+    <artifactId>fontawesomefx</artifactId>
+    <version>8.9</version>
+</dependency>
+
         <dependency>
             <groupId>com.oracle</groupId>
 	<artifactId>ojdbc14</artifactId>
 	<version>10.2.0.4.0</version>
-
         </dependency>
-          <dependency>
-       <groupId>de.jensd</groupId>
-       <artifactId>fontawesomefx-fontawesome</artifactId>
-       <version>4.7.0-9.1.2</version>
-       <type>pom</type>
-     </dependency>
-     <dependency>
-  <groupId>de.jensd</groupId>
-  <artifactId>fontawesomefx-commons</artifactId>
-  <version>9.1.2</version>
-  <type>pom</type>
-</dependency>
-     
     </dependencies>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

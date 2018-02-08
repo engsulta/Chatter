@@ -12,7 +12,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="589.0" stylesheets="@../styles/loginfxml.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdevsul.server.login.LoginFxmlController">
    <children>
       <FontAwesomeIconView glyphName="LOCK" layoutX="196.0" size="50" wrappingWidth="22.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="20.0" />
-      <FontAwesomeIconView glyphName="USER_CIRCLE" size="25" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />
+      <FontAwesomeIconView glyphName="USER" size="25" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />
       <FontAwesomeIconView glyphName="KEY" layoutX="35.0" layoutY="131.0" size="25" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="180.0" />
       <JFXTextField fx:id="AdminName" labelFloat="true" layoutY="92.0" prefHeight="33.0" prefWidth="259.0" promptText="Admin Name" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="90.0" />
       <JFXPasswordField fx:id="AdminPassword" labelFloat="true" prefHeight="33.0" prefWidth="259.0" promptText="Admin Password" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="170.0" />
