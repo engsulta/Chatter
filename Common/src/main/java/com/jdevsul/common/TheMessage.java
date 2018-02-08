@@ -13,6 +13,8 @@ import java.net.URI;
  *
  * @author sulta
  */
+
+//teeeest comment 
 public class TheMessage implements Serializable{
     String message;
     int id;
