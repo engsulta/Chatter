@@ -16,5 +16,7 @@ public interface DataBaseHandlerInt extends Remote {
       public void createConnection()throws RemoteException;
      public  void setupChatTables()throws RemoteException ;
       public boolean insertClient( ) throws RemoteException ;
+      
+      //test again eman
 // insert delete client update client getclient by email get client by status or online so on
 }
