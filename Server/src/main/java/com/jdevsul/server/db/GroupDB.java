@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.common;
+package com.jdevsul.server.db;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
  *
  * @author Eman-PC
  */
-public class MessageDB {
+public class GroupDB {
 
     int groupID;
     ArrayList<Integer> receiverID;
-    Date messageCreationDate;
+    Date groupCreationDate;
     int clientID;
     String groupName;
 
@@ -44,12 +44,12 @@ public class MessageDB {
         this.groupID = groupID;
     }
 
-    public Date getMessageCreationDate() {
-        return messageCreationDate;
+    public Date getGroupCreationDate() {
+        return groupCreationDate;
     }
 
-    public void setMessageCreationDate(Date messageCreationDate) {
-        this.messageCreationDate = messageCreationDate;
+    public void setGroupCreationDate(Date groupCreationDate) {
+        this.groupCreationDate = groupCreationDate;
     }
 
     public int getClientID() {

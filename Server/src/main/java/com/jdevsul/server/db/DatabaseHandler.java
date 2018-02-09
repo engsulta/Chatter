@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.common;
+package com.jdevsul.server.db;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -144,27 +144,27 @@ public class DatabaseHandler {
         }
     }
 
-    public void addMessage(MessageDB newMessage) {
+    public void addGroup(GroupDB newGroup) {
         try {
-            ArrayList<Integer> receiverIDs = newMessage.getReceiverID();
+            ArrayList<Integer> receiverIDs = newGroup.getReceiverID();
 
             for (int count = 0; count < receiverIDs.size(); count++) {
 
                 //Statement to be executed
-                PreparedStatement myStatement = con.prepareStatement("insert into message"
-                        + "(groupID,receiverID,messageCreationDate,clientID)"
+                PreparedStatement myStatement = con.prepareStatement("insert into groupChat"
+                        + "(groupID,receiverID,groupCreationDate,clientID)"
                         + "values(?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-                myStatement.setInt(1, newMessage.getGroupID());
+                myStatement.setInt(1, newGroup.getGroupID());
                 myStatement.setInt(2, receiverIDs.get(count));
-                myStatement.setDate(3, newMessage.getMessageCreationDate());
-                myStatement.setInt(4, newMessage.getClientID());
+                myStatement.setDate(3, newGroup.getGroupCreationDate());
+                myStatement.setInt(4, newGroup.getClientID());
                 myStatement.executeUpdate();
             }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            System.out.println("Error in adding new message");
+            System.out.println("Error in adding new group");
         }
     }
 
@@ -357,5 +357,90 @@ public class DatabaseHandler {
         return friendRequests;
     }
 
-    
+    public static void main(String[] args) {
+        // TODO code application logic here
+//        ClientDB c = new ClientDB();
+//        Date date= new Date(2018,2,9);
+//        c.setClientBirthdate(date);
+//        c.setClientCreationDate(date);
+//        c.setClientEmail("eman@yaho.com");
+//        c.setClientGender("female");
+//        c.setClientID(1);
+//        c.setClientImage("c:/hdjd/hdjd");
+//        c.setClientName("eman");
+//        c.setClientOnline(0);
+//        c.setClientPassword("1234");
+//        c.setClientStatus("away");
+//        ClientDB c = new ClientDB();
+//        Date date = new Date(2018, 2, 10);
+//        c.setClientBirthdate(date);
+//        c.setClientCreationDate(date);
+//        c.setClientEmail("is@yaho.com");
+//        c.setClientGender("male");
+//        c.setClientID(2);
+//        c.setClientImage("d:/hdjd/hdjd");
+//        c.setClientName("is");
+//        c.setClientOnline(1);
+//        c.setClientPassword("1234");
+//        c.setClientStatus("busy");
+
+        ClientDB c = new ClientDB();
+        Date date = new Date(2018, 2, 11);
+        c.setClientBirthdate(date);
+        c.setClientCreationDate(date);
+        c.setClientEmail("gh@yaho.com");
+        c.setClientGender("male");
+        c.setClientID(3);
+        c.setClientImage("d:/hdjd/hdjd");
+        c.setClientName("gh");
+        c.setClientOnline(0);
+        c.setClientPassword("1234");
+        c.setClientStatus("available");
+//
+//        ClientDB c1 = new ClientDB();
+//        Date date1 = new Date(2018, 2, 12);
+//        c1.setClientBirthdate(date1);
+//        c1.setClientCreationDate(date1);
+//        c1.setClientEmail("gh6@yaho.com");
+//        c1.setClientGender("female");
+//        c1.setClientID(4);
+//        c1.setClientImage("d:/hdjd/hdjd");
+//        c1.setClientName("gh");
+//        c1.setClientOnline(1);
+//        c1.setClientPassword("1234");
+//        c1.setClientStatus("away");
+
+//        ClientDB c1 = new ClientDB();
+//        Date date1 = new Date(2018, 2, 13);
+//        c1.setClientBirthdate(date1);
+//        c1.setClientCreationDate(date1);
+//        c1.setClientEmail("gh6@yahor.com");
+//        c1.setClientGender("male");
+//        c1.setClientID(5);
+//        c1.setClientImage("d:/hdjd/hdjd");
+//        c1.setClientName("gh");
+//        c1.setClientOnline(1);
+//        c1.setClientPassword("1234");
+//        c1.setClientStatus("away");
+        DatabaseHandler test = DatabaseHandler.getInstance();
+//        test.addFriendRequest(c, c1, date1);
+//        test.addClient(c1);
+//        GroupDB m = new GroupDB();
+//        m.setClientID(1);
+//        m.setGroupID(1);
+//        Date d1= new Date(2018,1,1);
+//        m.setMessageCreationDate(d1);
+//        ArrayList<Integer> i = new ArrayList<>();
+//        i.add(1);
+//        i.add(2);
+//        m.setReceiverID(i);
+//        
+//        test.addMessage(m);
+
+
+        ArrayList<Integer> m = test.getFriendRequests(c);
+        for(int i=0;i<m.size();i++)
+            System.out.println(m.get(i));
+    }
+
 }
