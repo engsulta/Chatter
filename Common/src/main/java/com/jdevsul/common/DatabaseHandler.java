@@ -175,7 +175,7 @@ public class DatabaseHandler {
             Statement myStatement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             //if clientOnlie =0 then online 
             //if clientOnlie=1 then offline
-            String query = "select count(*) from client where clientOnlie = 0";
+            String query = "select count(*) from client where clientOnline = 0";
 
             ResultSet resultSet = myStatement.executeQuery(query);
 
@@ -186,6 +186,28 @@ public class DatabaseHandler {
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in getting number of online clients");
+        }
+        return onlineClients;
+    }
+
+    public int getNumberOfOfflineClients() {
+        int onlineClients = 0;
+        try {
+
+            Statement myStatement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            //if clientOnlie =0 then online 
+            //if clientOnlie=1 then offline
+            String query = "select count(*) from client where clientOnline <> 0";
+
+            ResultSet resultSet = myStatement.executeQuery(query);
+
+            while (resultSet.next()) {
+                onlineClients = resultSet.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error in getting number of offline clients");
         }
         return onlineClients;
     }
@@ -209,6 +231,27 @@ public class DatabaseHandler {
             System.out.println("Error in getting number of female clients");
         }
         return femaleClients;
+    }
+
+    public int getNumberOfMaleClients() {
+        int maleClients = 0;
+        try {
+
+            Statement myStatement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            String query = "select count(*) from client where lower(clientGender)=lower('male')";
+
+            ResultSet resultSet = myStatement.executeQuery(query);
+
+            while (resultSet.next()) {
+                maleClients = resultSet.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error in getting number of male clients");
+        }
+        return maleClients;
     }
 
     public int getNumberOfAwayClients() {
@@ -314,8 +357,5 @@ public class DatabaseHandler {
         return friendRequests;
     }
 
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-
+    
 }

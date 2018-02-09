@@ -16,6 +16,17 @@ public class MessageDB {
 
     int groupID;
     ArrayList<Integer> receiverID;
+    Date messageCreationDate;
+    int clientID;
+    String groupName;
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
     public ArrayList<Integer> getReceiverID() {
         return receiverID;
@@ -24,8 +35,6 @@ public class MessageDB {
     public void setReceiverID(ArrayList<Integer> receiverID) {
         this.receiverID = receiverID;
     }
-    Date messageCreationDate;
-    int clientID;
 
     public int getGroupID() {
         return groupID;
