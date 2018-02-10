@@ -5,7 +5,7 @@
  */
 package com.jdevsul.clientimp;
 
-
+import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.Contact;
 import com.jdevsul.client.FXMLController;
 import com.jdevsul.common.Notification;
@@ -23,12 +23,11 @@ import javafx.application.Platform;
 public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
     FXMLController mainFXMLController;
+    Client currentClient;
 
     public ClientImpl(FXMLController mainFXMLController) throws RemoteException {
         this.mainFXMLController = mainFXMLController;
     }
-
-   
 
     @Override
     public void recieveMsg(TheMessage message) throws RemoteException {
@@ -55,5 +54,13 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
+    @Override
+    public Client getCurrentClient() {
+        return currentClient;
+    }
+
+    @Override
+    public void setCurrentClient(Client client) {
+        this.currentClient = client;
+    }
 }
