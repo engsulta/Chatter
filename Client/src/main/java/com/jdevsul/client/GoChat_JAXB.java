@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.jaxb;
+package com.jdevsul.client;
 
+import com.jdevsul.jaxb.MessageDetails;
+import com.jdevsul.jaxb.MessageFormat;
+import com.jdevsul.jaxb.Messages;
+import com.jdevsul.jaxb.ObjectFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -32,12 +36,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 public class GoChat_JAXB {
 
-    public static void main(String[] args) {
-
-        writeXml();
-
-        readXml();
-    }
+//    public static void main(String[] args) {
+//
+//        writeXml();
+//
+//        readXml();
+//    }
 
     static void readXml() {
 
@@ -52,9 +56,9 @@ public class GoChat_JAXB {
 
         try {
             // read testXml.xml 
-            jAXBContext = JAXBContext.newInstance("goChat_JAXB");
+            jAXBContext = JAXBContext.newInstance("com.jdevsul.jaxb");
             unmarshaller = jAXBContext.createUnmarshaller();
-            jAXBElement = (JAXBElement) unmarshaller.unmarshal(new File("/Users/gehad/NetBeansProjects/GoChat_JAXB/src/XML_Schema/testXml.xml"));
+            jAXBElement = (JAXBElement) unmarshaller.unmarshal(new File("src/main/resources/xml/testXml.xml"));
             messages = (Messages) jAXBElement.getValue();
 
             System.out.println("Sender is: " + messages.getFrom());
@@ -96,9 +100,9 @@ public class GoChat_JAXB {
 
         try {
 
-            jAXBContext = JAXBContext.newInstance("goChat_JAXB");
+            jAXBContext = JAXBContext.newInstance("com.jdevsul.jaxb");
             unmarshaller = jAXBContext.createUnmarshaller();
-            jAXBElement = (JAXBElement) unmarshaller.unmarshal(new File("/Users/gehad/NetBeansProjects/GoChat_JAXB/src/XML_Schema/testXml.xml"));
+            jAXBElement = (JAXBElement) unmarshaller.unmarshal(new File("src/main/resources/xml/testXml.xml"));
             messages = (Messages) jAXBElement.getValue();
             ObjectFactory factory = new ObjectFactory();
 
@@ -155,7 +159,7 @@ public class GoChat_JAXB {
             JAXBElement<Messages> myMsgMarshal = factory.createChatHistory(messages);
             Marshaller marsh = jAXBContext.createMarshaller();
             marsh.setProperty(JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marsh.marshal(myMsgMarshal, new FileOutputStream(new File("/Users/gehad/NetBeansProjects/GoChat_JAXB/src/XML_Schema/output.xml")));
+            marsh.marshal(myMsgMarshal, new FileOutputStream(new File("src/main/resources/xml/output.xml")));
 
         } catch (JAXBException ex) {
             Logger.getLogger(GoChat_JAXB.class.getName()).log(Level.SEVERE, null, ex);

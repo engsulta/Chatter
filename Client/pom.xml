@@ -6,31 +6,27 @@
         <groupId>com.JDevsul</groupId>
         <version>2.0.3-MessengerDemo</version>
     </parent>
-
+    <groupId>com.JDevsul</groupId>
     <artifactId>Client</artifactId>
+    <version>1.0.0-Launchserver</version>
     <packaging>jar</packaging>
-    <dependencies>
+    <name>Client</name>
+    <dependencies> 
         <dependency>
             <groupId>com.JDevsul</groupId>
-            <artifactId>Common</artifactId>
-            <version>2.0.3-MessengerDemo</version>
+            <artifactId>CommonApp</artifactId>
+            <version>1.0.0-Launchserver</version>
         </dependency>
-    
     </dependencies>
-    <name>Client</name>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>com.jdevsul.client.MainApp</mainClass>
     </properties>
-
     <organization>
-                <!-- Used as the 'Vendor' for JNLP generation -->
-
+        <!-- Used as the 'Vendor' for JNLP generation -->
         <!-- Used as the 'Vendor' for JNLP generation -->
         <name>Your Organisation</name>
     </organization>
-
     <build>
         <plugins>
             <plugin>
@@ -116,5 +112,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

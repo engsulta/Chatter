@@ -47,13 +47,13 @@ import javax.xml.bind.annotation.XmlType;
 public class MessageFormat {
 
     @XmlElement(name = "Color", required = true)
-    protected String color;
+    public String color;
     @XmlElement(name = "FontName", required = true)
-    protected String fontName;
+    public String fontName;
     @XmlElement(name = "FontStyle", required = true)
-    protected String fontStyle;
+    public String fontStyle;
     @XmlElement(name = "FontSize", required = true)
-    protected BigInteger fontSize;
+    public BigInteger fontSize;
 
     /**
      * Gets the value of the color property.

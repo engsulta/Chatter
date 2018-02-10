@@ -3,37 +3,29 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.JDevsul</groupId>
-    <artifactId>ChatPom</artifactId>
-    <version>2.0.3-MessengerDemo</version>
+        <artifactId>ChatPom</artifactId>
+        <version>2.0.3-MessengerDemo</version>
     </parent>
     <groupId>com.JDevsul</groupId>
     <artifactId>ServerApp</artifactId>
     <version>1.0.0-Launchserver</version>
     <packaging>jar</packaging>
     <name>ServerApp</name>
-
-<dependencies>
-  
-
-  <!-- https://mvnrepository.com/artifact/ojdbc/ojdbc -->
-<dependency>
- <groupId>com.JDevsul</groupId>
-        <artifactId>Common</artifactId>
-        <version>2.0.3-MessengerDemo</version>
- 
-</dependency>
-        </dependencies>
-    
+    <dependencies>
+         <dependency>
+            <groupId>com.JDevsul</groupId>
+            <artifactId>CommonApp</artifactId>
+            <version>1.0.0-Launchserver</version>
+        </dependency>
+    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>com.jdevsul.serverapp.MainApp</mainClass>
     </properties>
-
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->
         <name>Your Organisation</name>
     </organization>
-
     <build>
         <plugins>
             <plugin>
@@ -119,5 +111,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

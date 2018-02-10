@@ -46,10 +46,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class MessageDetails {
 
     @XmlElement(name = "Content", required = true)
-    protected String content;
+    public String content;
     @XmlElement(name = "Date", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar date;
+    public XMLGregorianCalendar date;
     @XmlElement(name = "Format", required = true)
     protected MessageFormat format;
 

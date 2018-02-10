@@ -16,7 +16,9 @@ public class MainApp extends Application {
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-        
+        //GoChat_JAXB newobj=new GoChat_JAXB();
+        GoChat_JAXB.readXml();
+        GoChat_JAXB.writeXml();
         stage.setTitle("JavaFX and Maven");
         stage.setScene(scene);
         stage.show();
