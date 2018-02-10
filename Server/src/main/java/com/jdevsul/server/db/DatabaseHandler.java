@@ -5,16 +5,17 @@
  */
 package com.jdevsul.server.db;
 
+import com.jdevsul.DBclasses.Client;
+import com.jdevsul.DBclasses.Contact;
+import com.jdevsul.DBclasses.FriendRequest;
+import com.jdevsul.DBclasses.Group;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import oracle.jdbc.OracleDriver;
 
 /**
@@ -25,6 +26,7 @@ import oracle.jdbc.OracleDriver;
 public class DatabaseHandler {
 
     Connection con;
+
     private static DatabaseHandler myInstance = null;
 
     private DatabaseHandler() {
@@ -43,7 +45,7 @@ public class DatabaseHandler {
         try {
             //open connection with database
             DriverManager.registerDriver(new OracleDriver());
-            con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "chat", "chat");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -63,7 +65,8 @@ public class DatabaseHandler {
     }
 
     /*------------------------- Client ----------------------------*/
-    public void addClient(Client client) {
+    public boolean addNewClient(Client client) {
+        int affectedRows = 0;
         try {
             //Statement to be executed
             PreparedStatement myStatement = con.prepareStatement("insert into client"
@@ -81,21 +84,26 @@ public class DatabaseHandler {
             myStatement.setString(8, client.getClientGender());
             myStatement.setDate(9, client.getClientBirthdate());
             myStatement.setInt(10, client.getClientOnline());
-            myStatement.executeUpdate();
+
+            affectedRows = myStatement.executeUpdate();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in adding new client");
         }
+
+        //if affectedRows !=0 return true else return false
+        return affectedRows != 0;
     }
 
-    public void updateClient(Client client) {
+    public boolean updateClient(Client client) {
+        int affectedRows = 0;
         try {
             //Statement to be executed
-            PreparedStatement myStatement = con.prepareStatement("update client"
-                    + "set clientID=?,clientEmail=?,clientName=?,clientPassword=?,"
-                    + "clientStatus=?,clientCreationDate=?,clientImage=?,clientGender=?,"
-                    + "clientBirthdate=?,clientOnline=? where clientID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            PreparedStatement myStatement = con.prepareStatement("update client "
+                    + "set clientID=?, clientEmail=?, clientName=?, clientPassword=?, "
+                    + "clientStatus=?, clientCreationDate=?, clientImage=?, clientGender=?, "
+                    + "clientBirthdate=? ,clientOnline=? where clientID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             myStatement.setInt(1, client.getClientID());
             myStatement.setString(2, client.getClientEmail());
@@ -108,12 +116,16 @@ public class DatabaseHandler {
             myStatement.setDate(9, client.getClientBirthdate());
             myStatement.setInt(10, client.getClientOnline());
             myStatement.setInt(11, client.getClientID());
-            myStatement.executeUpdate();
+
+            affectedRows = myStatement.executeUpdate();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            System.out.println("Error in adding new client");
+            System.out.println("Error in updating client");
         }
+
+        //if affectedRows !=0 return true else return false
+        return affectedRows != 0;
     }
 
     public boolean removeClient(int clientID) {
@@ -134,12 +146,12 @@ public class DatabaseHandler {
         return affectedRows != 0;
     }
 
-    public Client getClient(int clientID) {
+    public Client getClientByID(int clientID) {
         Client client = null;
         try {
 
             //Statement to be executed
-            PreparedStatement myStatement = con.prepareStatement("select * from client where id=?",
+            PreparedStatement myStatement = con.prepareStatement("select * from client where clientid=?",
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             myStatement.setInt(1, clientID);
@@ -160,7 +172,38 @@ public class DatabaseHandler {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            System.out.println("Error in adding new client");
+            System.out.println("Error in getting client by ID");
+        }
+        return client;
+    }
+
+    public Client getClientByEmail(String clientEmail) {
+        Client client = null;
+        try {
+
+            //Statement to be executed
+            PreparedStatement myStatement = con.prepareStatement("select * from client where clientEmail =?",
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            myStatement.setString(1, clientEmail);
+            ResultSet resultSet = myStatement.executeQuery();
+            while (resultSet.next()) {
+                client = new Client();
+                client.setClientBirthdate(resultSet.getDate("clientBirthdate"));
+                client.setClientCreationDate(resultSet.getDate("clientCreationDate"));
+                client.setClientEmail(resultSet.getString("clientEmail"));
+                client.setClientGender(resultSet.getString("clientGender"));
+                client.setClientID(resultSet.getInt("clientID"));
+                client.setClientImage(resultSet.getString("clientImage"));
+                client.setClientName(resultSet.getString("clientName"));
+                client.setClientOnline(resultSet.getInt("clientOnline"));
+                client.setClientPassword(resultSet.getString("clientPassword"));
+                client.setClientStatus(resultSet.getString("clientStatus"));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error in getting client by email");
         }
         return client;
     }
@@ -176,17 +219,19 @@ public class DatabaseHandler {
             ResultSet resultSet = myStatement.executeQuery(query);
 
             while (resultSet.next()) {
-                clients.add(getClient(resultSet.getInt("clientID")));
+                clients.add(getClientByID(resultSet.getInt("clientID")));
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println("Error in getting all clients");
         }
         return clients;
     }
 
     /*------------------------- Group ----------------------------*/
-    public void addNewGroup(Group newGroup) {
+    public boolean addNewGroup(Group newGroup) {
+        int affectedRows = 0;
         try {
             ArrayList<Integer> receiverIDs = newGroup.getReceiverID();
 
@@ -194,24 +239,33 @@ public class DatabaseHandler {
 
                 //Statement to be executed
                 PreparedStatement myStatement = con.prepareStatement("insert into groupChat"
-                        + "(groupID,receiverID,groupCreationDate,clientID)"
-                        + "values(?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                        + "(groupID,receiverID,groupCreationDate,clientID,groupName)"
+                        + "values(?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
                 myStatement.setInt(1, newGroup.getGroupID());
                 myStatement.setInt(2, receiverIDs.get(count));
                 myStatement.setDate(3, newGroup.getGroupCreationDate());
                 myStatement.setInt(4, newGroup.getClientID());
-                myStatement.executeUpdate();
+                myStatement.setString(5, newGroup.getGroupName());
+
+                affectedRows = myStatement.executeUpdate();
             }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in adding new group");
         }
+
+        //if affectedRows !=0 return true else return false
+        return affectedRows != 0;
     }
 
-//    public int updateGroup(Group client) {
-//    }
+    public boolean updateGroup(Group group) {
+        removeGroup(group.getGroupID());
+        boolean result = addNewGroup(group);
+        return result;
+    }
+
     public boolean removeGroup(int groupID) {
         int affectedRows = 0;
         try {
@@ -230,26 +284,71 @@ public class DatabaseHandler {
         return affectedRows != 0;
     }
 
-//    public ArrayList<Group> getMyGroups(int clientID) {
-//
-//    }
+    public ArrayList<Group> getMyGroups(int clientID) {
+        ArrayList<Group> groups = new ArrayList<>();
+        ArrayList<Integer> recievers = null;
+        Group newGroup = null;
+        try {
+            //get all group IDs first
+            PreparedStatement myStatement = con.prepareStatement("select DISTINCT groupID from groupChat where "
+                    + "clientID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            myStatement.setInt(1, clientID);
+            ResultSet resultSet = myStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int groupID = resultSet.getInt("groupID");
+                newGroup = new Group();
+                recievers = new ArrayList<>();
+
+                //loop for each group ID and fetch its recievers
+                PreparedStatement myStatement2 = con.prepareStatement("select * from groupChat where "
+                        + "groupID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+                myStatement2.setInt(1, groupID);
+
+                ResultSet resultSet2 = myStatement2.executeQuery();
+
+                while (resultSet2.next()) {
+                    newGroup.setClientID(clientID);
+                    newGroup.setGroupCreationDate(resultSet2.getDate("GROUPCREATIONDATE"));
+                    newGroup.setGroupName(resultSet2.getString("groupname"));
+                    newGroup.setReceiverID(recievers);
+                    newGroup.setGroupID(groupID);
+                    recievers.add(resultSet2.getInt("receiverID"));
+                }
+
+                groups.add(newGroup);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error in getting all groups");
+        }
+        return groups;
+
+    }
 
     /*------------------------- Contact ----------------------------*/
-    public void addNewContact(Contact contact) {
+    public boolean addNewContact(Contact contact) {
+        int affectedRows = 0;
         try {
             //Statement to be executed
-            PreparedStatement myStatement = con.prepareStatement("insert into contact"
-                    + "(clientID,contactID) values(?,?)", ResultSet.TYPE_SCROLL_SENSITIVE,
+            PreparedStatement myStatement = con.prepareStatement("insert into contact "
+                    + "(clientID, contactID) values(?, ?)", ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
 
             myStatement.setInt(1, contact.getClientID());
             myStatement.setInt(2, contact.getContactID());
-            myStatement.executeUpdate();
+            affectedRows = myStatement.executeUpdate();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in adding new contact");
         }
+
+        //if affectedRows !=0 return true else return false
+        return affectedRows != 0;
     }
 
     public ArrayList<Client> getMyContacts(int clientID) {
@@ -262,7 +361,7 @@ public class DatabaseHandler {
             myStatement.setInt(1, clientID);
             ResultSet resultSet = myStatement.executeQuery();
             while (resultSet.next()) {
-                contacts.add(getClient(resultSet.getInt("contactID")));
+                contacts.add(getClientByID(resultSet.getInt("contactID")));
             }
 
         } catch (SQLException ex) {
@@ -285,13 +384,16 @@ public class DatabaseHandler {
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in removing contact");
-        }//if affectedRows !=0 return true else return false
+        }
+
+        //if affectedRows !=0 return true else return false
         return affectedRows != 0;
 
     }
 
     /*---------------------- FriendRequest --------------------------*/
-    public void addFriendRequest(FriendRequest request) {
+    public boolean addNewFriendRequest(FriendRequest request) {
+        int affectedRows = 0;
         try {
             //Statement to be executed
             PreparedStatement myStatement = con.prepareStatement("insert into friendRequest"
@@ -301,15 +403,19 @@ public class DatabaseHandler {
             myStatement.setInt(1, request.getClientID());
             myStatement.setInt(2, request.getFriendID());
             myStatement.setDate(3, request.getRequestDate());
-            myStatement.executeUpdate();
+            affectedRows = myStatement.executeUpdate();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            System.out.println("Error in adding new friend");
+            System.out.println("Error in adding new friend request");
         }
+
+        //if affectedRows !=0 return true else return false
+        return affectedRows != 0;
     }
 
-    public void removeFriendRequest(FriendRequest request, int type) {
+    public boolean removeFriendRequest(FriendRequest request, int type) {
+        int affectedRows = 0;
         try {
             //type=0 --> accept request so add to contacts
             //anything else --> reject request
@@ -321,7 +427,7 @@ public class DatabaseHandler {
 
             myStatement.setInt(1, request.getFriendID());
             myStatement.setInt(2, request.getClientID());
-            myStatement.executeUpdate();
+            affectedRows = myStatement.executeUpdate();
 
             if (type == 0) {
                 Contact contact = new Contact();
@@ -332,8 +438,11 @@ public class DatabaseHandler {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            System.out.println("Error in deleting friend request");
+            System.out.println("Error in removing friend request");
         }
+
+        //if affectedRows !=0 return true else return false
+        return affectedRows != 0;
     }
 
     public ArrayList<FriendRequest> getMyFriendRequests(int clientID) {
@@ -347,8 +456,10 @@ public class DatabaseHandler {
             myStatement.setInt(1, clientID);
             ResultSet resultSet = myStatement.executeQuery();
             while (resultSet.next()) {
-                request.setClientID(resultSet.getInt("clientID"));
+                request = new FriendRequest();
+                request.setClientID(clientID);
                 request.setFriendID(resultSet.getInt("friendID"));
+                request.setRequestDate(resultSet.getDate("requestDate"));
                 friendRequests.add(request);
             }
 
@@ -528,88 +639,6 @@ public class DatabaseHandler {
             System.out.println("Error in getting number of available clients");
         }
         return availableClients;
-    }
-
-    public static void main(String[] args) {
-        // TODO code application logic here
-//        Client c = new Client();
-//        Date date= new Date(2018,2,9);
-//        c.setClientBirthdate(date);
-//        c.setClientCreationDate(date);
-//        c.setClientEmail("eman@yaho.com");
-//        c.setClientGender("female");
-//        c.setClientID(1);
-//        c.setClientImage("c:/hdjd/hdjd");
-//        c.setClientName("eman");
-//        c.setClientOnline(0);
-//        c.setClientPassword("1234");
-//        c.setClientStatus("away");
-//        Client c = new Client();
-//        Date date = new Date(2018, 2, 10);
-//        c.setClientBirthdate(date);
-//        c.setClientCreationDate(date);
-//        c.setClientEmail("is@yaho.com");
-//        c.setClientGender("male");
-//        c.setClientID(2);
-//        c.setClientImage("d:/hdjd/hdjd");
-//        c.setClientName("is");
-//        c.setClientOnline(1);
-//        c.setClientPassword("1234");
-//        c.setClientStatus("busy");
-
-        Client c = new Client();
-        Date date = new Date(2018, 2, 11);
-        c.setClientBirthdate(date);
-        c.setClientCreationDate(date);
-        c.setClientEmail("gh@yaho.com");
-        c.setClientGender("male");
-        c.setClientID(3);
-        c.setClientImage("d:/hdjd/hdjd");
-        c.setClientName("gh");
-        c.setClientOnline(0);
-        c.setClientPassword("1234");
-        c.setClientStatus("available");
-//
-//        Client c1 = new Client();
-//        Date date1 = new Date(2018, 2, 12);
-//        c1.setClientBirthdate(date1);
-//        c1.setClientCreationDate(date1);
-//        c1.setClientEmail("gh6@yaho.com");
-//        c1.setClientGender("female");
-//        c1.setClientID(4);
-//        c1.setClientImage("d:/hdjd/hdjd");
-//        c1.setClientName("gh");
-//        c1.setClientOnline(1);
-//        c1.setClientPassword("1234");
-//        c1.setClientStatus("away");
-
-//        Client c1 = new Client();
-//        Date date1 = new Date(2018, 2, 13);
-//        c1.setClientBirthdate(date1);
-//        c1.setClientCreationDate(date1);
-//        c1.setClientEmail("gh6@yahor.com");
-//        c1.setClientGender("male");
-//        c1.setClientID(5);
-//        c1.setClientImage("d:/hdjd/hdjd");
-//        c1.setClientName("gh");
-//        c1.setClientOnline(1);
-//        c1.setClientPassword("1234");
-//        c1.setClientStatus("away");
-        DatabaseHandler test = DatabaseHandler.getInstance();
-//        test.addFriendRequest(c, c1, date1);
-//        test.addClient(c1);
-//        Group m = new Group();
-//        m.setClientID(1);
-//        m.setGroupID(1);
-//        Date d1= new Date(2018,1,1);
-//        m.setMessageCreationDate(d1);
-//        ArrayList<Integer> i = new ArrayList<>();
-//        i.add(1);
-//        i.add(2);
-//        m.setReceiverID(i);
-//        
-//        test.addMessage(m);
-
     }
 
 }

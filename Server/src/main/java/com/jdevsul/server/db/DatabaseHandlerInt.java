@@ -18,20 +18,22 @@ import java.util.ArrayList;
 public interface DatabaseHandlerInt {
 
     /*------------------------- Client ----------------------------*/
-    public void addClient(Client client);
+    public boolean addNewClient(Client client);
 
-    public void updateClient(Client client);
+    public boolean updateClient(Client client);
 
     public boolean removeClient(int clientID);
 
-    public Client getClient(int clientID);
+    public Client getClientByID(int clientID);
+
+    public Client getClientByEmail(String clientEmail);
 
     public ArrayList<Client> getAllClients();
 
     /*------------------------- Group ----------------------------*/
-    public void addNewGroup(Group newGroup);
+    public boolean addNewGroup(Group newGroup);
 
-    public int updateGroup(Group client);
+    public boolean updateGroup(Group group);
 
     public boolean removeGroup(int groupID);
 
@@ -39,7 +41,7 @@ public interface DatabaseHandlerInt {
     public ArrayList<Group> getMyGroups(int clientID);
 
     /*------------------------- Contact ----------------------------*/
-    public void addNewContact(Contact contact);
+    public boolean addNewContact(Contact contact);
 
     //return the contacts of specific id
     public ArrayList<Client> getMyContacts(int clientID);
@@ -47,12 +49,12 @@ public interface DatabaseHandlerInt {
     public boolean removeContact(int contactID);
 
     /*---------------------- FriendRequest --------------------------*/
-    public void addFriendRequest(FriendRequest request);
+    public boolean addNewFriendRequest(FriendRequest request);
 
     //type=0 --> accept request so add to contacts
     //anything else --> reject request
     //in both cases the request will be deleted from the friendRequest table
-    public void removeFriendRequest(FriendRequest request, int type);
+    public boolean removeFriendRequest(FriendRequest request, int type);
 
     //return the friend requests of specific id
     public ArrayList<FriendRequest> getMyFriendRequests(int clientID);
