@@ -49,5 +49,7 @@ public interface ServerInterface extends Remote {
     public void updateMe(ClientInterface client) throws RemoteException;
 
     public void updateMyGroup(ClientInterface client) throws RemoteException;
+    
+    
 
 }
