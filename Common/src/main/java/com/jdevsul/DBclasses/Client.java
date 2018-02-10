@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author Eman-PC
  */
-public class ClientDB {
+public class Client {
 
     int clientID;
     String clientEmail;

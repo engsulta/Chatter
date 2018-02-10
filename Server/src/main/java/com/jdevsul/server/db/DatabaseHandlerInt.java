@@ -5,10 +5,10 @@
  */
 package com.jdevsul.server.db;
 
-import com.jdevsul.common.Client;
-import com.jdevsul.common.Contact;
-import com.jdevsul.common.FriendRequest;
-import com.jdevsul.common.Group;
+import com.jdevsul.DBclasses.Client;
+import com.jdevsul.DBclasses.Contact;
+import com.jdevsul.DBclasses.FriendRequest;
+import com.jdevsul.DBclasses.Group;
 import java.util.ArrayList;
 
 /**

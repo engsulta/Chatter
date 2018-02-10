@@ -5,10 +5,6 @@
  */
 package com.jdevsul.server.db;
 
-import com.jdevsul.common.Client;
-import com.jdevsul.common.Contact;
-import com.jdevsul.common.FriendRequest;
-import com.jdevsul.common.Group;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -532,6 +528,88 @@ public class DatabaseHandler {
             System.out.println("Error in getting number of available clients");
         }
         return availableClients;
+    }
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+//        Client c = new Client();
+//        Date date= new Date(2018,2,9);
+//        c.setClientBirthdate(date);
+//        c.setClientCreationDate(date);
+//        c.setClientEmail("eman@yaho.com");
+//        c.setClientGender("female");
+//        c.setClientID(1);
+//        c.setClientImage("c:/hdjd/hdjd");
+//        c.setClientName("eman");
+//        c.setClientOnline(0);
+//        c.setClientPassword("1234");
+//        c.setClientStatus("away");
+//        Client c = new Client();
+//        Date date = new Date(2018, 2, 10);
+//        c.setClientBirthdate(date);
+//        c.setClientCreationDate(date);
+//        c.setClientEmail("is@yaho.com");
+//        c.setClientGender("male");
+//        c.setClientID(2);
+//        c.setClientImage("d:/hdjd/hdjd");
+//        c.setClientName("is");
+//        c.setClientOnline(1);
+//        c.setClientPassword("1234");
+//        c.setClientStatus("busy");
+
+        Client c = new Client();
+        Date date = new Date(2018, 2, 11);
+        c.setClientBirthdate(date);
+        c.setClientCreationDate(date);
+        c.setClientEmail("gh@yaho.com");
+        c.setClientGender("male");
+        c.setClientID(3);
+        c.setClientImage("d:/hdjd/hdjd");
+        c.setClientName("gh");
+        c.setClientOnline(0);
+        c.setClientPassword("1234");
+        c.setClientStatus("available");
+//
+//        Client c1 = new Client();
+//        Date date1 = new Date(2018, 2, 12);
+//        c1.setClientBirthdate(date1);
+//        c1.setClientCreationDate(date1);
+//        c1.setClientEmail("gh6@yaho.com");
+//        c1.setClientGender("female");
+//        c1.setClientID(4);
+//        c1.setClientImage("d:/hdjd/hdjd");
+//        c1.setClientName("gh");
+//        c1.setClientOnline(1);
+//        c1.setClientPassword("1234");
+//        c1.setClientStatus("away");
+
+//        Client c1 = new Client();
+//        Date date1 = new Date(2018, 2, 13);
+//        c1.setClientBirthdate(date1);
+//        c1.setClientCreationDate(date1);
+//        c1.setClientEmail("gh6@yahor.com");
+//        c1.setClientGender("male");
+//        c1.setClientID(5);
+//        c1.setClientImage("d:/hdjd/hdjd");
+//        c1.setClientName("gh");
+//        c1.setClientOnline(1);
+//        c1.setClientPassword("1234");
+//        c1.setClientStatus("away");
+        DatabaseHandler test = DatabaseHandler.getInstance();
+//        test.addFriendRequest(c, c1, date1);
+//        test.addClient(c1);
+//        Group m = new Group();
+//        m.setClientID(1);
+//        m.setGroupID(1);
+//        Date d1= new Date(2018,1,1);
+//        m.setMessageCreationDate(d1);
+//        ArrayList<Integer> i = new ArrayList<>();
+//        i.add(1);
+//        i.add(2);
+//        m.setReceiverID(i);
+//        
+//        test.addMessage(m);
+
     }
 
 }

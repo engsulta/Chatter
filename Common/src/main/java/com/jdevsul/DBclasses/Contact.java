@@ -7,8 +7,27 @@ package com.jdevsul.DBclasses;
 
 /**
  *
- * @author sulta
+ * @author Eman-PC
  */
 public class Contact {
-    
+
+    int clientID;
+    int contactID;
+
+    public int getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(int clientID) {
+        this.clientID = clientID;
+    }
+
+    public int getContactID() {
+        return contactID;
+    }
+
+    public void setContactID(int contactID) {
+        this.contactID = contactID;
+    }
+
 }
