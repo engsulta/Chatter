@@ -8,6 +8,10 @@ package com.jdevsul.common;
 import java.io.File;
 import java.io.Serializable;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,48 +20,83 @@ import java.net.URI;
 
 //teeeest comment 
 public class TheMessage implements Serializable{
-    String message;
-    int id;
-    String userName;
-    URI userImage;
+    int fromID;
+    ArrayList<Integer> ToID;
+    String body;
+    String color;
+    String font_family;
+    String font_size;
+    LocalDateTime localDateTime;
 
-    public TheMessage(String message, int id,String username,URI userImage) {
-        this.message = message;
-        this.id = id;
-        this.userName=username;
-        this.userImage=userImage;
+    @Override
+    public String toString() {
+        return "TheMessage{" + "fromID=" + fromID + ", ToID=" + ToID + ", body=" + body + ", color=" + color + ", font_family=" + font_family + ", font_size=" + font_size + ", localDateTime=" + localDateTime + '}';
     }
 
-    public URI getUserImage() {
-        return userImage;
+    public TheMessage(int fromID, ArrayList<Integer> ToID, String body, String color, String font_family, String font_size, LocalDateTime localDateTime) {
+        this.fromID = fromID;
+        this.ToID = ToID;
+        this.body = body;
+        this.color = color;
+        this.font_family = font_family;
+        this.font_size = font_size;
+        this.localDateTime = localDateTime;
     }
 
-    public void setUserImage(URI userImage) {
-        this.userImage = userImage;
+    public int getFromID() {
+        return fromID;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setFromID(int fromID) {
+        this.fromID = fromID;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public ArrayList<Integer> getToID() {
+        return ToID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setToID(ArrayList<Integer> ToID) {
+        this.ToID = ToID;
     }
 
-    public int getId() {
-        return id;
+    public String getBody() {
+        return body;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public String getMessage() {
-        return message;
+    public String getColor() {
+        return color;
     }
 
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getFont_family() {
+        return font_family;
+    }
+
+    public void setFont_family(String font_family) {
+        this.font_family = font_family;
+    }
+
+    public String getFont_size() {
+        return font_size;
+    }
+
+    public void setFont_size(String font_size) {
+        this.font_size = font_size;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+    
 }

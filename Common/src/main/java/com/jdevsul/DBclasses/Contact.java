@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.common;
+package com.jdevsul.DBclasses;
 
 /**
  *
- * @author szmoh
+ * @author sulta
  */
-public class SherifClassTest {
+public class Contact {
     
 }

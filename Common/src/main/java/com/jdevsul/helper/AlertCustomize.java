@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.common;
+package com.jdevsul.helper;
 
 /**
  *
  * @author sulta
  */
-public interface NotificationInt {
+public class AlertCustomize {
     
 }
