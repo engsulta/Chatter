@@ -5,22 +5,58 @@
  */
 package com.jdevsul.common;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  *
  * @author sulta
  */
-class TheFile {
-    byte[] file;
-    String name;
-    int from ;
-    int to;
+public class TheFile implements Serializable{
+    private int fromID ;
+    private int toID;
+    private byte[] data;
+    private String name;  
+    private LocalTime time;
+    private int size;
 
-    public byte[] getFile() {
-        return file;
+    @Override
+    public String toString() {
+        return "TheFile{" + "fromID=" + fromID + ", toID=" + toID + ", data=" + data + ", name=" + name + ", time=" + time + ", size=" + size + '}';
     }
 
-    public void setFile(byte[] file) {
-        this.file = file;
+    public TheFile(int fromID, int toID, byte[] data, String name, LocalTime time, int size) {
+        this.fromID = fromID;
+        this.toID = toID;
+        this.data = data;
+        this.name = name;
+        this.time = time;
+        this.size = size;
+    }
+
+    public int getFromID() {
+        return fromID;
+    }
+
+    public void setFromID(int fromID) {
+        this.fromID = fromID;
+    }
+
+    public int getToID() {
+        return toID;
+    }
+
+    public void setToID(int toID) {
+        this.toID = toID;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     public String getName() {
@@ -31,20 +67,20 @@ class TheFile {
         this.name = name;
     }
 
-    public int getFrom() {
-        return from;
+    public LocalTime getTime() {
+        return time;
     }
 
-    public void setFrom(int from) {
-        this.from = from;
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
-    public int getTo() {
-        return to;
+    public int getSize() {
+        return size;
     }
 
-    public void setTo(int to) {
-        this.to = to;
+    public void setSize(int size) {
+        this.size = size;
     }
-    
+
 }
