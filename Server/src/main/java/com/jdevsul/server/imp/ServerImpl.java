@@ -1,10 +1,10 @@
 package com.jdevsul.server.imp;
 
 
-import com.jdevsul.DBclasses.ClientDB;
+import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.Contact;
 import com.jdevsul.DBclasses.Group;
-import com.jdevsul.DBclasses.Request;
+import com.jdevsul.DBclasses.FriendRequest;
 import com.jdevsul.common.TheFile;
 import com.jdevsul.interfaces.ClientInterface;
 import com.jdevsul.interfaces.ServerInterface;
@@ -58,7 +58,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public Contact acceptNewRequest(Request request) throws RemoteException {
+    public Contact acceptNewRequest(FriendRequest request) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -68,7 +68,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public ArrayList<ClientDB> getMyContacts(int myID) throws RemoteException {
+    public ArrayList<Client> getMyContacts(int myID) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -78,12 +78,12 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public ArrayList<Request> getMyRequested(int myID) throws RemoteException {
+    public ArrayList<FriendRequest> getMyRequested(int myID) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void addNewRequest(Request request) throws RemoteException {
+    public void addNewRequest(FriendRequest request) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

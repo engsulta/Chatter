@@ -6,8 +6,8 @@
 package com.jdevsul.interfaces;
 
 import com.jdevsul.interfaces.ClientInterface;
-import com.jdevsul.DBclasses.ClientDB;
-import com.jdevsul.DBclasses.Request;
+import com.jdevsul.DBclasses.Client;
+import com.jdevsul.DBclasses.FriendRequest;
 import com.jdevsul.DBclasses.Contact;
 import com.jdevsul.DBclasses.Group;
 import com.jdevsul.common.TheFile;
@@ -27,12 +27,12 @@ public interface ServerInterface extends Remote{
     public boolean sendFile(TheFile file)throws RemoteException;
     public void creatNewGroup(Group group)throws RemoteException;
     public boolean removeGroup(Group group)throws RemoteException;   
-    public Contact acceptNewRequest(Request request)throws RemoteException;//and the server will add the contact to you and your friend implecit
+    public Contact acceptNewRequest(FriendRequest request)throws RemoteException;//and the server will add the contact to you and your friend implecit
     public boolean removeContact(Contact contact)throws RemoteException;
-    public ArrayList<ClientDB> getMyContacts(int myID)throws RemoteException;
+    public ArrayList<Client> getMyContacts(int myID)throws RemoteException;
     public ArrayList<Group> getMyGroups(int myID)throws RemoteException;
-    public ArrayList<Request> getMyRequested(int myID)throws RemoteException;
-    public void addNewRequest(Request request)throws RemoteException;   
+    public ArrayList<FriendRequest> getMyRequested(int myID)throws RemoteException;
+    public void addNewRequest(FriendRequest request)throws RemoteException;   
     public void updateMe(ClientInterface client)throws RemoteException;
     public void updateMyGroup(ClientInterface client)throws RemoteException;
     
