@@ -5,6 +5,10 @@
  */
 package com.jdevsul.server.db;
 
+import com.jdevsul.DBclasses.Client;
+import com.jdevsul.DBclasses.Contact;
+import com.jdevsul.DBclasses.FriendRequest;
+import com.jdevsul.DBclasses.Group;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;

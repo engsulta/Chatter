@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
-import static javafx.fxml.FXMLLoader.load;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -43,7 +42,7 @@ public class ClientUtil {
             stage.setTitle(name);
             stage.setScene(new Scene(parent));
             stage.show();
-            setStageImage(stage);
+            //setStageImage(stage);
 
         } catch (IOException ex) {
             Logger.getLogger(ClientUtil.class.getName()).log(Level.SEVERE, null, ex);

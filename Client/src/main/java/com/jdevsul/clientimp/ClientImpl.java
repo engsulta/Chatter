@@ -7,7 +7,7 @@ package com.jdevsul.clientimp;
 
 
 import com.jdevsul.DBclasses.Contact;
-import com.jdevsul.client.FXMLController;
+import com.jdevsul.main.MainController;
 import com.jdevsul.common.Notification;
 import com.jdevsul.common.ServerAdsense;
 import com.jdevsul.common.TheFile;
@@ -22,9 +22,9 @@ import javafx.application.Platform;
  */
 public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
-    FXMLController mainFXMLController;
+    MainController mainFXMLController;
 
-    public ClientImpl(FXMLController mainFXMLController) throws RemoteException {
+    public ClientImpl(MainController mainFXMLController) throws RemoteException {
         this.mainFXMLController = mainFXMLController;
     }
 

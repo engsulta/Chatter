@@ -5,9 +5,16 @@
  */
 package com.jdevsul.clientsignup;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -16,6 +23,17 @@ import javafx.fxml.Initializable;
  */
 public class ClientSignUpController implements Initializable {
 
+    @FXML
+    private JFXTextField UserName;
+    @FXML
+    private JFXPasswordField UserPassword;
+    @FXML
+    private JFXTextField Email;
+    @FXML
+    private JFXDatePicker Date;
+    @FXML
+    private JFXComboBox<?> Gender;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +41,29 @@ public class ClientSignUpController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void HandleSignUpAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleCloseAction(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleMinimizeAction(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleBackAction(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleonMouseDragged(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleonMousePressed(MouseEvent event) {
+    }
     
 }
