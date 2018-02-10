@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.server.db;
+package com.jdevsul.common;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Eman-PC
  */
-public class GroupDB {
+public class Group {
 
     int groupID;
     ArrayList<Integer> receiverID;

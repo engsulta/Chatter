@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.server.db;
+package com.jdevsul.common;
 
 import java.sql.Date;
 
@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author Eman-PC
  */
-public class ClientDB {
+public class Client {
 
     int clientID;
     String clientEmail;
