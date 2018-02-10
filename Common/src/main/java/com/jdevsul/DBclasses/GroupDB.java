@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.server.db;
+package com.jdevsul.DBclasses;
 
 import java.sql.Date;
 import java.util.ArrayList;

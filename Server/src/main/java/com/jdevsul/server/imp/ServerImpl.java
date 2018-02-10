@@ -8,15 +8,12 @@ import com.jdevsul.DBclasses.Request;
 import com.jdevsul.common.TheFile;
 import com.jdevsul.interfaces.ClientInterface;
 import com.jdevsul.interfaces.ServerInterface;
-
-
 import com.jdevsul.common.TheMessage;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 
@@ -24,7 +21,6 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 
     public ServerImpl() throws RemoteException {
     }
-
 
     @Override
     public void sendMsg(TheMessage message) throws RemoteException {
