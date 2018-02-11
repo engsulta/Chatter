@@ -32,15 +32,6 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public boolean login(int clientID) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean logout(int clientID) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public boolean sendFile(TheFile file) throws RemoteException {
@@ -94,6 +85,16 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 
     @Override
     public void updateMyGroup(ClientInterface client) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Client login(String clientEmail, String clientPassword, ClientInterface clientRef) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean logout(ClientInterface clientRef) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
