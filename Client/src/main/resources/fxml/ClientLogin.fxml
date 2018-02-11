@@ -20,12 +20,12 @@
       <JFXPasswordField fx:id="AdminPassword" labelFloat="true" layoutX="300.0" layoutY="131.0" prefHeight="33.0" prefWidth="259.0" promptText="User Password" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="190.0" />
       <ImageView fitHeight="400.0" fitWidth="275.0" layoutX="5.0" layoutY="13.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../../../Server/src/main/resources/images/unnamed%20(1).jpg" />
+            <Image url="@../images/unnamed%20(1).jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="42.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Server/src/main/resources/images/logo2.png" />
+            <Image url="@../../../../../Client/src/main/resources/images/logo2.png" />
          </image>
       </ImageView>
       <JFXButton layoutX="320.0" layoutY="271.0" onAction="#HandleLoginAction" prefHeight="33.0" prefWidth="259.0" ripplerFill="#c9c1c1" text="Login" />
