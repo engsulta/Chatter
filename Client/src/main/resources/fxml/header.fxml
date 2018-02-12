@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="110.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fill="#d4dad1" layoutX="59.0" layoutY="56.0" radius="36.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Label layoutX="102.0" layoutY="31.0" text="Ahmed Sultan">
+         <font>
+            <Font name="Imprint MT Shadow" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="128.0" layoutY="55.0" text="(Away)" textFill="#948e8e" />
+      <Circle fill="#1fff70" layoutX="90.0" layoutY="79.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <MaterialDesignIconView glyphName="CHECK" layoutX="85.0" layoutY="82.0" size="10" />
+      <MaterialDesignIconView glyphName="STAR_OUTLINE" layoutX="239.0" layoutY="48.0" />
+      <MaterialDesignIconView glyphName="FOLDER_DOWNLOAD" layoutX="498.0" layoutY="54.0" size="20" />
+      <MaterialDesignIconView glyphName="ACCOUNT_MULTIPLE_PLUS" layoutX="466.0" layoutY="54.0" size="20" />
+      <MaterialDesignIconView glyphName="PHONE" layoutX="440.0" layoutY="54.0" size="20" />
+   </children>
+</AnchorPane>

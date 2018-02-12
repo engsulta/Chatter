@@ -5,16 +5,27 @@
  */
 package com.jdevsul.server.mainui;
 
+import com.jdevsul.server.graph.GraphsHandler;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -31,25 +42,32 @@ public class MainFXMLController implements Initializable {
     @FXML
     private JFXTabPane mainTabPane;
     @FXML
-    private Tab bookIssueTab;
+    private MaterialDesignIconView Power;
     @FXML
-    private HBox book_info;
+    private TextField PortNumber;
     @FXML
-    private JFXTextField bookIDInput;
+    private TextField Ip;
     @FXML
-    private StackPane bookInfoContainer;
+    private Tab showClientTab;
     @FXML
-    private Text bookName;
+    private PieChart OnlineChart;
     @FXML
-    private Text bookAuthor;
+    private HBox client_info;
     @FXML
-    private Text bookStatus;
+    private JFXTextField clientIDInput;
     @FXML
-    private Tab renewTab;
+    private StackPane clientInfoContainer;
     @FXML
-    private JFXHamburger hamburger;
+    private Text clientUserName;
     @FXML
-    private JFXDrawer drawer;
+    private Text clientEmail;
+    @FXML
+    private Text clientStatus;
+    @FXML
+    private PieChart GenderChart;
+    @FXML
+    private JFXButton renew;
+    private GraphsHandler graphsHandler;
 
     /**
      * Initializes the controller class.
@@ -57,10 +75,84 @@ public class MainFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        graphsHandler = new GraphsHandler();
+        testGraphs();
+    }
+
+    private void testGraphs() {
+        final ObservableList<PieChart.Data> Onlinedetails = FXCollections.observableArrayList();
+        final ObservableList<PieChart.Data> genderDetails = FXCollections.observableArrayList();
+
+        ////onlinechart show data && GenderChart
+        Onlinedetails.addAll(new PieChart.Data("Cost1", 20),
+                new PieChart.Data("Cost2", 25),
+                new PieChart.Data("Cost6", 15)
+        );
+        genderDetails.addAll(new PieChart.Data("Cost1", 20),
+                new PieChart.Data("Cost2", 25),
+                new PieChart.Data("Cost6", 15)
+        );
+
+        OnlineChart.setData(Onlinedetails);
+        OnlineChart.setTitle("ChatPieChart");
+        OnlineChart.setLegendSide(Side.RIGHT);
+        OnlineChart.setLabelsVisible(true);
+        OnlineChart.setStartAngle(90);
+        OnlineChart.setAnimated(true);
+        //----------------------------  -------------------------------//
+        GenderChart.setData(Onlinedetails);
+        GenderChart.setTitle("ChatPieChart");
+        GenderChart.setLegendSide(Side.RIGHT);
+        GenderChart.setLabelsVisible(true);
+        GenderChart.setStartAngle(90);
+        GenderChart.setAnimated(true);
+    }
+
+    private void initGraphs() {
+        OnlineChart.setData(graphsHandler.getOnlineGraphStatistics());
+        OnlineChart.setTitle("ChatPieChart");
+        OnlineChart.setLegendSide(Side.RIGHT);
+        OnlineChart.setLabelsVisible(true);
+        OnlineChart.setStartAngle(90);
+        OnlineChart.setAnimated(true);
+
+        GenderChart.setData(graphsHandler.getGenderGraphStatistics());
+        GenderChart.setTitle("ChatPieChart");
+        GenderChart.setLegendSide(Side.RIGHT);
+        GenderChart.setLabelsVisible(true);
+        GenderChart.setStartAngle(90);
+        GenderChart.setAnimated(true);
+
+    }
+
+    private void refreshGraphs() {
+        OnlineChart.setData(graphsHandler.getOnlineGraphStatistics());
+        GenderChart.setData(graphsHandler.getGenderGraphStatistics());
+    }
 
     @FXML
-    private void loadBookInfo(ActionEvent event) {
+    private void HandleOnPowerPressed(MouseEvent event) {
+        
     }
-    
+
+    @FXML
+    private void HandleOnShowPressed(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleOnRenewPressed(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleShowClient(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleRenewAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleStatisticsTab(Event event) {
+    }
+
 }

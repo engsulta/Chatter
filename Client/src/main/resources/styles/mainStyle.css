@@ -1,0 +1,78 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 12, 2018, 12:15:07 AM
+    Author     : sulta
+*/
+
+   
+* {
+    -fx-primary : #E9E9E9;
+    -fx-contact-color: #DEDEDE;
+    -fx-secondary : #2d6e7a;
+    -fx-primarytext : #f9f9f7;
+    -fx-darkblue:#3D73A2;
+    -fx-lightblue:#8bd6f4;
+    -fx-online:#a1f48b;
+    -fx-blue: #1976D2;
+    -fx-red: #FF0000;
+}
+.glyph-icon
+{
+    -fx-fill: #2d6e7a;
+}
+.contactPane{
+        -fx-fill:  -fx-contact-color;
+
+}
+.text-field
+{
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-size : 12pt;
+    -jfx-focus-color: -fx-secondary;
+    -fx-text-fill: derive(-fx-secondary, 80%);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+.text-error
+{
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-size : 12pt;
+    -jfx-focus-color: -fx-red;
+    -fx-text-fill: derive(-fx-secondary, 80%);
+}
+
+.root{
+    -fx-background-color: -fx-primary;
+}
+
+.button{
+    -fx-text-fill: -fx-primarytext;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-secondary;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-font-size: 13pt;
+}
+
+.button:hover{
+    -fx-border-color: -fx-secondary;
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: -fx-primary;
+}
+
+.tab{
+    -fx-background-color: -fx-primary;
+    -fx-pref-width : 55;
+    -fx-pref-height : 28;
+}
+
+.tab-header-background{
+    -fx-background-color: -fx-primary;
+}
+.chatareapane{
+    -fx-background-image:url("@../images/whats.JPG");
+}

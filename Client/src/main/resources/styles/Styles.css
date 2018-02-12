@@ -169,3 +169,14 @@
 .setup-button:hover{
     -fx-background-color: #0288D1;
 }
+
+/*TablPane styling*/
+.tab{
+    -fx-background-color: -fx-primary;
+    -fx-pref-width : 50;
+    -fx-pref-height : 20;
+}
+
+.tab-header-background{
+    -fx-background-color: -fx-primary;
+}

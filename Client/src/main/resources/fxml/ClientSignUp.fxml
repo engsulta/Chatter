@@ -30,8 +30,8 @@
       <MaterialDesignIconView glyphName="CALENDAR" layoutX="100.0" layoutY="433.0" size="30" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="406.75" />
       <MaterialDesignIconView glyphName="KEY" layoutX="100.0" layoutY="363.0" size="30" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="336.75" />
       <JFXTextField fx:id="Email" labelFloat="true" layoutX="139.0" layoutY="268.0" prefHeight="33.0" prefWidth="259.0" promptText="Email" unFocusColor="#737573" AnchorPane.topAnchor="268.0" />
-      <JFXDatePicker fx:id="Date" defaultColor="#89f992" layoutX="139.0" layoutY="407.0" prefHeight="33.0" prefWidth="259.0" promptText="Birth Date" AnchorPane.topAnchor="407.0" />
-      <JFXComboBox fx:id="Gender" editable="true" focusColor="#89f992" labelFloat="true" layoutX="131.0" layoutY="477.0" prefHeight="25.0" prefWidth="259.0" promptText="Gender" unFocusColor="#737573" AnchorPane.topAnchor="477.0" />
+      <JFXDatePicker fx:id="Date" defaultColor="#89f992" layoutX="139.0" layoutY="407.0" overLay="true" prefHeight="33.0" prefWidth="259.0" promptText="Birth Date" AnchorPane.topAnchor="407.0" />
+      <JFXComboBox fx:id="Gender" focusColor="#89f992" labelFloat="true" layoutX="131.0" layoutY="477.0" prefHeight="25.0" prefWidth="259.0" promptText="Gender" unFocusColor="#737573" AnchorPane.topAnchor="477.0" />
       <MaterialDesignIconView glyphName="ACCOUNT" layoutX="100.0" layoutY="503.0" size="30" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="476.75" />
       <MaterialDesignIconView glyphName="KEYBOARD_BACKSPACE" layoutX="27.0" layoutY="39.0" onMousePressed="#HandleBackAction" size="20" />
       <MaterialDesignIconView glyphName="ARROW_RIGHT_BOLD_CIRCLE" layoutX="334.0" layoutY="563.0" size="18" />
