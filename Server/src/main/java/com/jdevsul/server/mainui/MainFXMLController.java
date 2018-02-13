@@ -6,6 +6,7 @@
 package com.jdevsul.server.mainui;
 
 import com.jdevsul.server.graph.GraphsHandler;
+import com.jdevsul.server.imp.ServerManagerImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -13,7 +14,12 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -75,8 +81,18 @@ public class MainFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        graphsHandler = new GraphsHandler();
         testGraphs();
+        graphsHandler = new GraphsHandler();
+
+        try {
+            Registry reg = LocateRegistry.createRegistry(7474);
+            reg.rebind("ChatService", new ServerManagerImpl());
+            System.out.println("Server is up");
+
+        } catch (RemoteException ex) {
+            Logger.getLogger(MainFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private void testGraphs() {
@@ -132,7 +148,7 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private void HandleOnPowerPressed(MouseEvent event) {
-        
+
     }
 
     @FXML
