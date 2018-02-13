@@ -1,0 +1,17 @@
+
+  
+  #contactBox{
+    -fx-background-color: white;
+    -fx-background-radius: 5.0;
+    -fx-padding: 7;
+   
+}
+#imagehbox{
+    -fx-background-color: white;
+   
+}
+
+#confirmDeleteBtns
+{
+    -fx-spacing: 10;
+}
