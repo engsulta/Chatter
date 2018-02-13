@@ -17,7 +17,7 @@
    
    <children>
       <JFXTextField fx:id="UserName" labelFloat="true" layoutX="300.0" layoutY="184.0" prefHeight="33.0" prefWidth="259.0" promptText="User Name" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="130.0" />
-      <JFXPasswordField fx:id="AdminPassword" labelFloat="true" layoutX="300.0" layoutY="131.0" prefHeight="33.0" prefWidth="259.0" promptText="User Password" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="190.0" />
+      <JFXPasswordField fx:id="userPassword" labelFloat="true" layoutX="300.0" layoutY="131.0" prefHeight="33.0" prefWidth="259.0" promptText="User Password" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="190.0" />
       <ImageView fitHeight="400.0" fitWidth="275.0" layoutX="5.0" layoutY="13.0" opacity="0.2" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../images/unnamed%20(1).jpg" />
@@ -65,7 +65,7 @@
                   <Font name="Eras Medium ITC" size="15.0" />
                </font>
             </Label>
-            <FontAwesomeIconView glyphName="PLUS_CIRCLE" layoutX="23.0" layoutY="21.0" size="15" />
+            <FontAwesomeIconView glyphName="PLUS_CIRCLE" layoutX="23.0" layoutY="21.0" onMousePressed="#HandleRegisterAction" size="15" />
          </children>
       </Pane>
       <Line endX="70.0" fill="#f2ecec" layoutX="441.0" layoutY="91.0" opacity="0.2" startX="-100.0" stroke="#ebe4e4" AnchorPane.leftAnchor="350.0" />

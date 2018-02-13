@@ -5,6 +5,7 @@
  */
 package com.jdevsul.DBclasses;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Eman-PC
  */
-public class Group {
+public class Group implements Serializable{
 
     int groupID;
     ArrayList<Integer> receiverID;

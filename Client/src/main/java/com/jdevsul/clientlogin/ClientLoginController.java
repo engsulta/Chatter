@@ -23,7 +23,9 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -34,19 +36,20 @@ public class ClientLoginController implements Initializable {
 
     @FXML
     private JFXTextField UserName;
-    @FXML
-    private JFXPasswordField AdminPassword;
 
     private ServerManagerInt serverManagerRef;
     private ServerAuthInt authRef;
     private Client currentClient;
+    ClientImpl clientRef;
+    Stage appStage;
+    @FXML
+    private JFXPasswordField userPassword;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         try {
             Registry reg = LocateRegistry.getRegistry(7474);
             serverManagerRef = (ServerManagerInt) reg.lookup("ChatService");
@@ -56,19 +59,21 @@ public class ClientLoginController implements Initializable {
         }
     }
 ////////////
-    
-    
+
     @FXML
     private void HandleLoginAction(ActionEvent event) {
 
         try {
-
-            ClientImpl clientRef = new ClientImpl(new MainController());
-            currentClient = authRef.login(UserName.getText().trim(), AdminPassword.getText().trim(), clientRef);
+            appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            clientRef = new ClientImpl(new MainController());
+            currentClient = authRef.login(UserName.getText().trim(), userPassword.getText().trim(), clientRef);
 
             if (currentClient != null) {
-                ClientUtil.loadWindow(getClass().getResource("/fxml/list.fxml"), null, "Login");
+
+                ClientUtil.loadWindow(getClass().getResource("/fxml/Main.fxml"), appStage, "Login");
             } else {
+                userPassword.getStyleClass().add("text-error");
+                userPassword.getStyleClass().add("text-error");
                 //7aga mo2ktn
                 System.out.println("Invalid username or password");
             }
@@ -92,6 +97,10 @@ public class ClientLoginController implements Initializable {
 
     @FXML
     private void HandleRegisterAction(MouseEvent event) {
+        appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        ClientUtil.loadWindow(getClass().getResource("/fxml/ClientSignUp.fxml"), appStage, "Login");
+
     }
 
     @FXML

@@ -5,11 +5,13 @@
  */
 package com.jdevsul.DBclasses;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Eman-PC
  */
-public class Contact {
+public class Contact implements Serializable{
 
     int clientID;
     int contactID;

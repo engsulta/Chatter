@@ -36,9 +36,8 @@
       <MaterialDesignIconView glyphName="KEYBOARD_BACKSPACE" layoutX="27.0" layoutY="39.0" onMousePressed="#HandleBackAction" size="20" />
       <MaterialDesignIconView glyphName="ARROW_RIGHT_BOLD_CIRCLE" layoutX="334.0" layoutY="563.0" size="18" />
       <Line endX="70.0" fill="#f2ecec" layoutX="263.0" layoutY="73.0" opacity="0.2" startX="-100.0" stroke="#ebe4e4" AnchorPane.topAnchor="65.0" />
-      <MaterialDesignIconView glyphName="" layoutX="157.0" layoutY="46.0" />
       <Circle fill="#989999" layoutX="248.0" layoutY="127.0" opacity="0.5" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
-      <MaterialDesignIconView glyphName="CAMERA" layoutX="233.0" layoutY="131.0" onMousePressed="#HandleOnMousePressed" size="30" wrappingWidth="29.99999362230301" />
+      <MaterialDesignIconView glyphName="CAMERA" layoutX="233.0" layoutY="131.0" onMousePressed="#HandleOnCameraPressed" size="30" wrappingWidth="29.99999362230301" />
       <Label layoutX="222.0" layoutY="135.0" text="Add Pjoto" textFill="#c9c6c6" />
    </children>
 

@@ -58,6 +58,13 @@ public class ClientSignUpController implements Initializable {
     private void HandleBackAction(MouseEvent event) {
     }
 
+   
+
+
+    @FXML
+    private void HandleOnCameraPressed(MouseEvent event) {
+    }
+
     @FXML
     private void HandleonMouseDragged(MouseEvent event) {
     }

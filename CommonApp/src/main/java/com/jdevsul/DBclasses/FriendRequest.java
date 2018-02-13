@@ -5,13 +5,14 @@
  */
 package com.jdevsul.DBclasses;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author Eman-PC
  */
-public class FriendRequest {
+public class FriendRequest implements Serializable{
 
     int clientID;
     int friendID;
