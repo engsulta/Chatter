@@ -1,58 +1,55 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//package com.jdevsul.clientFriendRequest;
-//
-//import com.jdevsul.DBclasses.Client;
-//import com.jdevsul.DBclasses.FriendRequest;
-//import java.net.URL;
-//import java.util.ArrayList;
-//import java.util.ResourceBundle;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-//import javafx.event.ActionEvent;
-//import javafx.event.EventHandler;
-//import javafx.fxml.FXML;
-//import javafx.fxml.Initializable;
-//import javafx.geometry.Pos;
-//import javafx.scene.control.Button;
-//import javafx.scene.control.ListCell;
-//import javafx.scene.control.ListView;
-//import javafx.scene.control.TextField;
-//import javafx.scene.image.Image;
-//import javafx.scene.input.MouseEvent;
-//import javafx.scene.layout.HBox;
-//import javafx.scene.layout.VBox;
-//import javafx.scene.paint.ImagePattern;
-//import javafx.scene.shape.Circle;
-//import javafx.scene.text.Font;
-//import javafx.scene.text.FontWeight;
-//import javafx.scene.text.Text;
-//import javafx.scene.text.TextAlignment;
-//import javafx.util.Callback;
-//
-///**
-// * FXML Controller class
-// *
-// * @author Eman-PC
-// */
-//public class FriendRequestController implements Initializable {
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.jdevsul.clientFriendRequest;
+
+import com.jdevsul.DBclasses.Client;
+import com.jdevsul.DBclasses.FriendRequest;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.util.Callback;
+
+/**
+ * FXML Controller class
+ *
+ * @author Eman-PC
+ */
+public class FriendRequestController implements Initializable {
 //
 //    @FXML
 //    private ListView<Client> friendRequestList;
-//    @FXML
-//    private TextField friendText;
+//   
 //
+//    DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
 //
 //    /**
 //     * Initializes the controller class.
 //     */
-//    
-//    DatabaseHandler databaseHandler = new DatabaseHandler();
-//  
-//    public void updateMyFriendRequests(final int clientID, ArrayList<Client> firendRequest) {
+//   public void updateMyFriendRequests(int clientID, ArrayList<Client> firendRequest) {
 //
 //        ObservableList<Client> myContacts = FXCollections.observableArrayList(firendRequest);
 //
@@ -65,7 +62,7 @@
 //            public ListCell<Client> call(ListView<Client> param) {
 //                return new ListCell<Client>() {
 //                    @Override
-//                    protected void updateItem(final Client myFriend, boolean empty) {
+//                    protected void updateItem(Client myFriend, boolean empty) {
 //                        super.updateItem(myFriend, empty);
 //
 //                        //containerVBox include all boxes
@@ -73,6 +70,7 @@
 //
 //                        //requestInfo include name, buttons
 //                        VBox requestInfo = null;
+//
 //                        //confirmDelete include confirm,delete
 //                        HBox confirmDelete = null;
 //
@@ -151,25 +149,27 @@
 //                            });
 //
 //                            contactName.setTextAlignment(TextAlignment.CENTER);
-//                            contactName.setFont(Font.font("Agency FB", FontWeight.BOLD, 25));
+//                            contactName.setFont(Font.font("Arial", 16));
 //
-//                            confirmBtn.setFont(Font.font("Agency FB", FontWeight.BOLD, 18));
-//                            deleteBtn.setFont(Font.font("Agency FB", FontWeight.BOLD, 18));
+//                            confirmBtn.setFont(Font.font("Arial", 13));
+//                            deleteBtn.setFont(Font.font("Arial", 13));
+//
+//                            confirmBtn.setId("button");
+//                            deleteBtn.setId("button");
 //
 //                            images.getChildren().add(contactImage);
 //                            images.setAlignment(Pos.BASELINE_LEFT);
-//                            images.setId("imagehbox");
 //
 //                            name.getChildren().add(contactName);
-//                            name.setAlignment(Pos.BASELINE_LEFT);
 //
-//                            confirmDelete.setId("confirmDeleteBtns");
+//                            confirmDelete.setSpacing(10);
+//                            confirmDelete.setAlignment(Pos.BASELINE_RIGHT);
 //                            confirmDelete.getChildren().addAll(confirmBtn, deleteBtn);
 //
-//                            requestInfo.setSpacing(10);
+//                            requestInfo.setSpacing(15);
 //                            requestInfo.getChildren().addAll(name, confirmDelete);
 //
-//                            containerVBox.setId("contactBox");
+//                            containerVBox.setId("contactvbox");
 //                            containerVBox.setSpacing(15);
 //                            containerVBox.getChildren().addAll(images, requestInfo);
 //
@@ -182,11 +182,9 @@
 //            }
 //        });
 //    }
-//
-//
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        // TODO
-//    }
-//
-//}
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }
+
+}
