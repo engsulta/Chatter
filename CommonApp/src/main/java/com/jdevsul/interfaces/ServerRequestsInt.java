@@ -5,6 +5,7 @@
  */
 package com.jdevsul.interfaces;
 
+import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.Contact;
 import com.jdevsul.DBclasses.FriendRequest;
 import java.rmi.Remote;
@@ -21,5 +22,5 @@ public interface ServerRequestsInt extends Remote{
 
     public void addNewRequest(FriendRequest request) throws RemoteException;
 
-    public ArrayList<FriendRequest> getMyRequested(int myID) throws RemoteException;
+    public ArrayList<Client> getMyRequested(int myID) throws RemoteException;
 }

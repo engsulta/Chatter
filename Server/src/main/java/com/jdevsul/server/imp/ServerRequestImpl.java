@@ -5,6 +5,7 @@
  */
 package com.jdevsul.server.imp;
 
+import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.Contact;
 import com.jdevsul.DBclasses.FriendRequest;
 import com.jdevsul.interfaces.ServerRequestsInt;
@@ -40,7 +41,7 @@ public class ServerRequestImpl extends UnicastRemoteObject implements ServerRequ
     }
 
     @Override
-    public ArrayList<FriendRequest> getMyRequested(int myID) throws RemoteException {
+    public ArrayList<Client> getMyRequested(int myID) throws RemoteException {
         return DatabaseHandler.getInstance().getMyFriendRequests(myID);
     }
 

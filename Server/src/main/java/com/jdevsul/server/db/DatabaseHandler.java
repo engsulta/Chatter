@@ -72,18 +72,17 @@ public class DatabaseHandler {
             PreparedStatement myStatement = con.prepareStatement("insert into client"
                     + "(clientID,clientEmail,clientName,clientPassword,clientStatus,clientCreationDate"
                     + ",clientImage,clientGender,clientBirthdate,clientOnline)"
-                    + "values(?,?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "values(CLIENTIDSEQUENCE.nextval,?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            myStatement.setInt(1, client.getClientID());
-            myStatement.setString(2, client.getClientEmail());
-            myStatement.setString(3, client.getClientName());
-            myStatement.setString(4, client.getClientPassword());
-            myStatement.setString(5, client.getClientStatus());
-            myStatement.setDate(6, client.getClientCreationDate());
-            myStatement.setString(7, client.getClientImage());
-            myStatement.setString(8, client.getClientGender());
-            myStatement.setDate(9, client.getClientBirthdate());
-            myStatement.setInt(10, client.getClientOnline());
+            myStatement.setString(1, client.getClientEmail());
+            myStatement.setString(2, client.getClientName());
+            myStatement.setString(3, client.getClientPassword());
+            myStatement.setString(4, client.getClientStatus());
+            myStatement.setDate(5, client.getClientCreationDate());
+            myStatement.setString(6, client.getClientImage());
+            myStatement.setString(7, client.getClientGender());
+            myStatement.setDate(8, client.getClientBirthdate());
+            myStatement.setInt(9, client.getClientOnline());
 
             affectedRows = myStatement.executeUpdate();
 
@@ -101,21 +100,20 @@ public class DatabaseHandler {
         try {
             //Statement to be executed
             PreparedStatement myStatement = con.prepareStatement("update client "
-                    + "set clientID=?, clientEmail=?, clientName=?, clientPassword=?, "
+                    + "set clientEmail=?, clientName=?, clientPassword=?, "
                     + "clientStatus=?, clientCreationDate=?, clientImage=?, clientGender=?, "
                     + "clientBirthdate=? ,clientOnline=? where clientID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            myStatement.setInt(1, client.getClientID());
-            myStatement.setString(2, client.getClientEmail());
-            myStatement.setString(3, client.getClientName());
-            myStatement.setString(4, client.getClientPassword());
-            myStatement.setString(5, client.getClientStatus());
-            myStatement.setDate(6, client.getClientCreationDate());
-            myStatement.setString(7, client.getClientImage());
-            myStatement.setString(8, client.getClientGender());
-            myStatement.setDate(9, client.getClientBirthdate());
-            myStatement.setInt(10, client.getClientOnline());
-            myStatement.setInt(11, client.getClientID());
+            myStatement.setString(1, client.getClientEmail());
+            myStatement.setString(2, client.getClientName());
+            myStatement.setString(3, client.getClientPassword());
+            myStatement.setString(4, client.getClientStatus());
+            myStatement.setDate(5, client.getClientCreationDate());
+            myStatement.setString(6, client.getClientImage());
+            myStatement.setString(7, client.getClientGender());
+            myStatement.setDate(8, client.getClientBirthdate());
+            myStatement.setInt(9, client.getClientOnline());
+            myStatement.setInt(10, client.getClientID());
 
             affectedRows = myStatement.executeUpdate();
 
@@ -182,7 +180,7 @@ public class DatabaseHandler {
         try {
 
             //Statement to be executed
-            PreparedStatement myStatement = con.prepareStatement("select * from client where clientEmail =?",
+            PreparedStatement myStatement = con.prepareStatement("select * from client where lower(clientEmail) =lower('?')",
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             myStatement.setString(1, clientEmail);
@@ -434,6 +432,11 @@ public class DatabaseHandler {
                 contact.setClientID(request.getClientID());
                 contact.setContactID(request.getFriendID());
                 addNewContact(contact);
+                
+                Contact contact2 = new Contact();
+                contact2.setClientID(request.getFriendID());
+                contact2.setContactID(request.getClientID());
+                addNewContact(contact2);
             }
 
         } catch (SQLException ex) {
@@ -445,22 +448,17 @@ public class DatabaseHandler {
         return affectedRows != 0;
     }
 
-    public ArrayList<FriendRequest> getMyFriendRequests(int clientID) {
-        ArrayList<FriendRequest> friendRequests = new ArrayList<>();
-        FriendRequest request = null;
+    public ArrayList<Client> getMyFriendRequests(int clientID) {
+        ArrayList<Client> friendRequests = new ArrayList<>();
         try {
             //Statement to be executed
-            PreparedStatement myStatement = con.prepareStatement("select * from friendRequest "
+            PreparedStatement myStatement = con.prepareStatement("select friendID from friendRequest "
                     + "where clientID = ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             myStatement.setInt(1, clientID);
             ResultSet resultSet = myStatement.executeQuery();
             while (resultSet.next()) {
-                request = new FriendRequest();
-                request.setClientID(clientID);
-                request.setFriendID(resultSet.getInt("friendID"));
-                request.setRequestDate(resultSet.getDate("requestDate"));
-                friendRequests.add(request);
+                friendRequests.add(getClientByID(resultSet.getInt("friendID")));
             }
 
         } catch (SQLException ex) {
@@ -639,6 +637,46 @@ public class DatabaseHandler {
             System.out.println("Error in getting number of available clients");
         }
         return availableClients;
+    }
+
+    public static void main(String[] args) {
+
+        DatabaseHandler test = DatabaseHandler.getInstance();
+
+        Contact c = new Contact();
+        c.setClientID(3);
+        c.setContactID(4);
+        test.addNewContact(c);
+//        Client c = test.getClientByEmail("gh6@vv.com");
+//        System.out.println(c.getClientBirthdate().toString() + c.getClientCreationDate().toString() +c.getClientEmail() +c.getClientName());
+//        Contact c = new Contact();
+//        c.setClientID(4);
+//        c.setContactID(9);
+//        boolean t =test.addNewContact(c);
+//        System.out.println(t);
+//        Group g = new Group();
+//        g.setClientID(4);
+//        g.setGroupCreationDate(new Date(1998, 2, 4));
+//        g.setGroupID(3);
+//        g.setGroupName("hiiiiii");
+//        ArrayList<Integer> receiverID = new ArrayList<>();
+//        receiverID.add(5);
+//        receiverID.add(7);
+//        receiverID.add(3);
+//        receiverID.add(9);
+//        g.setReceiverID(receiverID);
+//        test.addNewGroup(g);
+//
+//        test.updateGroup(g);
+//        ArrayList<Group> g = test.getMyGroups(4);
+//        for (int i = 0; i < g.size(); i++) {
+//            System.out.println(g.get(i).getClientID() + g.get(i).getGroupID() + g.get(i).getGroupCreationDate().toString()
+//                    + g.get(i).getGroupName());
+//
+//            for (int j = 0; j < g.get(i).getReceiverID().size(); j++) {
+//                System.out.println(g.get(i).getReceiverID().get(j));
+//            }
+//        }
     }
 
 }
