@@ -5,11 +5,6 @@
  */
 package com.jdevsul.interfaces;
 
-import com.jdevsul.interfaces.ServerAuthInt;
-import com.jdevsul.interfaces.ServerContactInt;
-import com.jdevsul.interfaces.ServerGroupsInt;
-import com.jdevsul.interfaces.ServerRequestsInt;
-import com.jdevsul.interfaces.ServerSendInt;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -21,11 +16,15 @@ public interface ServerManagerInt extends Remote {
     public ServerAuthInt getServerAuthentication() throws RemoteException;
 
     public ServerSendInt getServerSend() throws RemoteException;
-    
+
     public ServerGroupsInt getServerGroups() throws RemoteException;
-    
+
     public ServerRequestsInt getServerRequests() throws RemoteException;
 
     public ServerContactInt getServerContact() throws RemoteException;
+
+    public void register(ClientInterface clientRef) throws RemoteException;
+
+    public void unregister(ClientInterface clientRef) throws RemoteException;
 
 }

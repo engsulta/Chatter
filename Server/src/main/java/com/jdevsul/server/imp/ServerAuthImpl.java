@@ -21,10 +21,7 @@ import java.util.Vector;
  */
 public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt, Serializable {
 
-    private static Vector<ClientInterface> clients;
-
-    ServerAuthImpl(Vector<ClientInterface> clients) throws RemoteException {
-        this.clients = clients;
+    ServerAuthImpl() throws RemoteException {
     }
 
     @Override
@@ -39,13 +36,13 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
             }
 
         }
-        clients.add(clientRef);
+//        clients.add(clientRef);
         DatabaseHandler.getInstance().addNewClient(clientRef.getCurrentClient());
         return signup_flag;
     }
 
     @Override
-    public Client login(String clientEmail, String clientPassword, ClientInterface clientRef) throws RemoteException {
+    public Client login(String clientEmail, String clientPassword) throws RemoteException {
 
         Client client = DatabaseHandler.getInstance().getClientByEmail(clientEmail);
 
@@ -57,24 +54,6 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
         }
 
         return client;
-
-        // not tested yet
-//        ArrayList<Client> allClients = DatabaseHandler.getInstance().getAllClients();
-//        Client currentClient = null;
-//        for (int i = 0; i < allClients.size() && currentClient == null; i++) {
-//
-//            if (allClients.get(i).getClientEmail().equals(clientEmail)) {
-//                if (allClients.get(i).getClientPassword().equals(clientPassword)) {
-//                    currentClient = allClients.get(i);
-//                    clientRef.setCurrentClient(allClients.get(i));
-//                    clients.add(clientRef);
-//                } else {
-//                    // l7d ma yekon feh design
-//                    System.out.println("Password incorrect");
-//                }
-//            }
-//        }
-//        return currentClient;
     }
 
     @Override

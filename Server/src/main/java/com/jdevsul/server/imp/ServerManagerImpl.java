@@ -28,12 +28,12 @@ public class ServerManagerImpl extends UnicastRemoteObject implements ServerMana
     ServerGroupImpl groupImpl = null;
     ServerRequestImpl requestImpl = null;
     ServerContactImpl contactImpl = null;
-    private static Vector<ClientInterface> clients = null;
+    private static Vector<ClientInterface> clientsVector = null;
 
     public ServerManagerImpl() throws RemoteException {
-        clients = new Vector<>();
-        authImpl = new ServerAuthImpl(clients);
-        sendImpl = new ServerSendImpl(clients);
+        clientsVector = new Vector<>();
+        authImpl = new ServerAuthImpl();
+        sendImpl = new ServerSendImpl(clientsVector);
         groupImpl = new ServerGroupImpl();
         requestImpl = new ServerRequestImpl();
         contactImpl = new ServerContactImpl();
@@ -62,6 +62,16 @@ public class ServerManagerImpl extends UnicastRemoteObject implements ServerMana
     @Override
     public ServerContactInt getServerContact() throws RemoteException {
         return contactImpl;
+    }
+
+    @Override
+    public void register(ClientInterface clientRef) throws RemoteException {
+        clientsVector.add(clientRef);
+    }
+
+    @Override
+    public void unregister(ClientInterface clientRef) throws RemoteException {
+        clientsVector.remove(clientRef);
     }
 
 }

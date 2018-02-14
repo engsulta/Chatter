@@ -6,7 +6,6 @@
 package com.jdevsul.interfaces;
 
 import com.jdevsul.DBclasses.Client;
-import com.jdevsul.interfaces.ClientInterface;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -18,7 +17,7 @@ public interface ServerAuthInt extends Remote{
 
     public boolean signup(ClientInterface clientRef) throws RemoteException;
 
-    public Client login(String clientEmail, String clientPassword, ClientInterface clientRef) throws RemoteException;
+    public Client login(String clientEmail, String clientPassword) throws RemoteException;
 
     public boolean logout(ClientInterface clientRef) throws RemoteException;
 

@@ -5,12 +5,8 @@
  */
 package com.jdevsul.common;
 
-import java.io.File;
 import java.io.Serializable;
-import java.net.URI;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**

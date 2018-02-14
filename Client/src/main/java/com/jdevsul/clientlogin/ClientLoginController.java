@@ -9,7 +9,6 @@ import com.jdevsul.DBclasses.Client;
 import com.jdevsul.client.util.ClientUtil;
 import com.jdevsul.clientimp.ClientImpl;
 import com.jdevsul.interfaces.*;
-import com.jdevsul.main.MainController;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -34,14 +33,14 @@ import javafx.stage.Stage;
  */
 public class ClientLoginController implements Initializable {
 
+    private ServerManagerInt serverManagerRef;
+    private ServerAuthInt serverAuthRef;
+    private Client currentClient;
+    private ClientImpl clientImpl;
+    private Stage appStage;
+
     @FXML
     private JFXTextField UserName;
-
-    private ServerManagerInt serverManagerRef;
-    private ServerAuthInt authRef;
-    private Client currentClient;
-    ClientImpl clientRef;
-    Stage appStage;
     @FXML
     private JFXPasswordField userPassword;
 
@@ -53,7 +52,7 @@ public class ClientLoginController implements Initializable {
         try {
             Registry reg = LocateRegistry.getRegistry(7474);
             serverManagerRef = (ServerManagerInt) reg.lookup("ChatService");
-            authRef = serverManagerRef.getServerAuthentication();
+            serverAuthRef = serverManagerRef.getServerAuthentication();
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(ClientLoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,11 +64,12 @@ public class ClientLoginController implements Initializable {
 
         try {
             appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            clientRef = new ClientImpl(new MainController());
-            currentClient = authRef.login(UserName.getText().trim(), userPassword.getText().trim(), clientRef);
+            clientImpl = ClientImpl.getInstance();
+            currentClient = serverAuthRef.login(UserName.getText().trim(), userPassword.getText().trim());
 
             if (currentClient != null) {
-
+                clientImpl.setCurrentClient(currentClient);
+                serverManagerRef.register(clientImpl);
                 ClientUtil.loadWindow(getClass().getResource("/fxml/Main.fxml"), appStage, "Login");
             } else {
                 userPassword.getStyleClass().add("text-error");

@@ -98,12 +98,12 @@
          <children>
             <Separator layoutX="67.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="0.0" />
             <MaterialDesignIconView glyphName="PAPERCLIP" layoutX="14.0" layoutY="40.0" rotate="45.0" size="30" />
-            <TextField layoutX="67.0" layoutY="14.0" prefHeight="37.0" prefWidth="434.0" promptText="text message">
+            <TextField fx:id="msgTextField" layoutX="67.0" layoutY="14.0" onKeyPressed="#handleSendMessage" prefHeight="37.0" prefWidth="434.0" promptText="text message">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </TextField>
-            <MaterialDesignIconView fill="#141313" glyphName="SEND" layoutX="468.0" layoutY="40.0" size="25" strokeWidth="0.0" />
+            <MaterialDesignIconView fx:id="sendButton" fill="#141313" glyphName="SEND" layoutX="468.0" layoutY="40.0" onMouseClicked="#handleSendMessage" size="25" strokeWidth="0.0" />
             <MaterialDesignIconView glyphName="EMOTICON_HAPPY" layoutX="511.0" layoutY="40.0" size="25" />
          </children>
       </AnchorPane>

@@ -20,17 +20,17 @@ import java.util.Vector;
  */
 public class ServerSendImpl extends UnicastRemoteObject implements ServerSendInt, Serializable {
 
-    private static Vector<ClientInterface> clients;
+    private static Vector<ClientInterface> clientsImplRef;
 
     public ServerSendImpl(Vector<ClientInterface> clients) throws RemoteException {
-        this.clients = clients;
+        this.clientsImplRef = clients;
     }
 
     @Override
     public boolean sendFile(TheFile file) throws RemoteException {
-        for (ClientInterface client : clients) {
-            if (client.getCurrentClient().getClientID() == file.getToID()) {
-                client.recieveFile(file);
+        for (ClientInterface clientRef : clientsImplRef) {
+            if (clientRef.getCurrentClient().getClientID() == file.getToID()) {
+                clientRef.recieveFile(file);
                 return true;
             }
         }
@@ -40,10 +40,11 @@ public class ServerSendImpl extends UnicastRemoteObject implements ServerSendInt
 
     @Override
     public void sendMsg(TheMessage message) throws RemoteException {
-        for (ClientInterface client : clients) {
+        for (ClientInterface clientRef : clientsImplRef) {
             for (int i = 0; i < message.getToID().size(); i++) {
-                if (client.getCurrentClient().getClientID() == message.getToID().get(i)) {
-                    client.recieveMsg(message);
+                
+                if (clientRef.getCurrentClient().getClientID() == message.getToID().get(i)) {
+                    clientRef.recieveMsg(message);
                 }
             }
 

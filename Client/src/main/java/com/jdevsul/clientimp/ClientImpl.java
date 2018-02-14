@@ -7,14 +7,16 @@ package com.jdevsul.clientimp;
 
 import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.Contact;
-import com.jdevsul.main.MainController;
 import com.jdevsul.common.Notification;
 import com.jdevsul.common.ServerAdsense;
 import com.jdevsul.common.TheFile;
 import com.jdevsul.interfaces.ClientInterface;
 import com.jdevsul.common.TheMessage;
+import com.jdevsul.main.MainController;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 
 /**
@@ -22,16 +24,28 @@ import javafx.application.Platform;
  */
 public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
-    MainController mainFXMLController;
-    Client currentClient;
+    private static ClientImpl myInstance = null;
+    private Client currentClient = null;
+    private MainController mainController;
 
-    public ClientImpl(MainController mainFXMLController) throws RemoteException {
-        this.mainFXMLController = mainFXMLController;
+    private ClientImpl() throws RemoteException {
+    }
+
+    public static ClientImpl getInstance() {
+        if (myInstance == null) {
+            try {
+                myInstance = new ClientImpl();
+            } catch (RemoteException ex) {
+                Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return myInstance;
     }
 
     @Override
     public void recieveMsg(TheMessage message) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        mainController.renderMessage(message);
     }
 
     @Override
@@ -62,5 +76,9 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     @Override
     public void setCurrentClient(Client client) {
         this.currentClient = client;
+    }
+
+    public void setMainController(MainController controller) {
+        this.mainController = controller;
     }
 }
