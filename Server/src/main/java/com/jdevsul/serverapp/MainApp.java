@@ -2,6 +2,7 @@ package com.jdevsul.serverapp;
 
 
 
+import com.jdevsul.server.db.DatabaseHandler;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,14 @@ public class MainApp extends Application {
         
         stage.setScene(scene);
         stage.show();
-   
+         new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseHandler.getInstance();
+
+            }
+        }).start();
+
         }
 
     /**
