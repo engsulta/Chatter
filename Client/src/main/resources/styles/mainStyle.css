@@ -53,14 +53,14 @@ and open the template in the editor.
     -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-primary;
     -fx-border-color: -fx-secondary;
-    -fx-border-radius: 20px;
-    -fx-background-radius: 20px;
-    -fx-font-size: 13pt;
+    -fx-border-radius: 1px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 12pt;
 }
 
 .button:hover{
     -fx-border-color: -fx-secondary;
-    -fx-background-color: -fx-secondary;
+    -fx-background-color: #DEDEDE;
     -fx-text-fill: -fx-primary;
 }
 

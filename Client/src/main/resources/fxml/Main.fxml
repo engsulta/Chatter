@@ -1,116 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTabPane?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdevsul.main.MainController">
    <children>
-      <AnchorPane prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: #DEDEDE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane prefHeight="56.0" prefWidth="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <TextField layoutX="14.0" layoutY="17.0" prefHeight="30.0" prefWidth="226.0" promptText="Search">
-                     <padding>
-                        <Insets left="25.0" />
-                     </padding>
-                  </TextField>
-                  <FontAwesomeIconView glyphName="SEARCH" layoutX="23.0" layoutY="36.0" opacity="0.5" size="12" />
-               </children>
-            </Pane>
-            <JFXTabPane layoutX="9.0" layoutY="64.0" styleClass="tabpane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
-               <tabs>
-                  <Tab>
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                     <graphic>
-                        <MaterialDesignIconView glyphName="HOME" size="20" text="" />
-                     </graphic>
-                  </Tab>
-                  <Tab>
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" />
-                     </content>
-                     <graphic>
-                        <MaterialDesignIconView glyphName="ACCOUNT_PLUS" layoutX="84.0" layoutY="147.0" size="20" />
-                     </graphic>
-                  </Tab>
-                  <Tab>
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <AnchorPane layoutX="-176.0" layoutY="305.0" prefHeight="63.0" prefWidth="550.0" AnchorPane.bottomAnchor="40.0">
-                                 <children>
-                                    <Separator layoutX="67.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="0.0" />
-                                    <MaterialDesignIconView glyphName="PAPERCLIP" layoutX="14.0" layoutY="40.0" rotate="45.0" size="30" />
-                                    <MaterialDesignIconView fill="#141313" glyphName="SEND" layoutX="468.0" layoutY="40.0" size="25" strokeWidth="0.0" />
-                                    <MaterialDesignIconView glyphName="EMOTICON_HAPPY" layoutX="511.0" layoutY="40.0" size="25" />
-                                 </children>
-                              </AnchorPane>
-                           </children></AnchorPane>
-                     </content>
-                     <graphic>
-                        <MaterialDesignIconView glyphName="SETTINGS" size="20" />
-                     </graphic>
-                  </Tab>
-                  <Tab>
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="250.0" stylesheets="@../styles/mainStyle.css" />
-                     </content>
-                     <graphic>
-                        <MaterialDesignIconView glyphName="EARTH" size="20" />
-                     </graphic>
-                  </Tab>
-               </tabs>
-            </JFXTabPane>
-         </children>
-      </AnchorPane>
+       <fx:include fx:id="contactList" source="list.fxml" />
       <AnchorPane layoutX="250.0" prefHeight="110.0" prefWidth="550.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Circle fill="#d4dad1" layoutX="59.0" layoutY="56.0" radius="36.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Label layoutX="102.0" layoutY="31.0" text="Ahmed Sultan">
+            <Circle fx:id="headerPohto" fill="#d4dad1" layoutX="59.0" layoutY="56.0" radius="36.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label fx:id="headerName" layoutX="102.0" layoutY="31.0" text="Ahmed Sultan">
                <font>
                   <Font name="Imprint MT Shadow" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="128.0" layoutY="55.0" text="(Away)" textFill="#948e8e" />
+            <Label fx:id="headerStatus" layoutX="128.0" layoutY="55.0" text="(Away)" textFill="#948e8e" />
             <Circle fill="#1fff70" layoutX="90.0" layoutY="79.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <MaterialDesignIconView glyphName="CHECK" layoutX="85.0" layoutY="82.0" size="10" />
+            <MaterialDesignIconView fx:id="headerOnline" glyphName="CHECK" layoutX="85.0" layoutY="82.0" size="10" />
             <MaterialDesignIconView glyphName="STAR_OUTLINE" layoutX="239.0" layoutY="48.0" />
-            <MaterialDesignIconView glyphName="FOLDER_DOWNLOAD" layoutX="498.0" layoutY="54.0" size="20" />
-            <MaterialDesignIconView glyphName="ACCOUNT_MULTIPLE_PLUS" layoutX="466.0" layoutY="54.0" size="20" />
+            <MaterialDesignIconView glyphName="FOLDER_DOWNLOAD" layoutX="498.0" layoutY="54.0" onMousePressed="#HandleOnSaveFile" size="20" />
+            <MaterialDesignIconView glyphName="ACCOUNT_MULTIPLE_PLUS" layoutX="466.0" layoutY="54.0" onMousePressed="#HandleOnAddgroup" size="20" />
             <MaterialDesignIconView glyphName="PHONE" layoutX="440.0" layoutY="54.0" size="20" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="63.0" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="437.0">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="437.0">
          <children>
             <Separator layoutX="67.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="0.0" />
-            <MaterialDesignIconView glyphName="PAPERCLIP" layoutX="14.0" layoutY="40.0" rotate="45.0" size="30" />
-            <TextField fx:id="msgTextField" layoutX="67.0" layoutY="14.0" onKeyPressed="#handleSendMessage" prefHeight="37.0" prefWidth="434.0" promptText="text message">
+            <MaterialDesignIconView glyphName="PAPERCLIP" layoutX="14.0" layoutY="40.0" onMousePressed="#HandleOnFileSend" rotate="45.0" size="30" />
+            <TextField fx:id="textMessage" layoutX="67.0" layoutY="14.0" prefHeight="37.0" prefWidth="434.0" promptText="text message">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </TextField>
-            <MaterialDesignIconView fx:id="sendButton" fill="#141313" glyphName="SEND" layoutX="468.0" layoutY="40.0" onMouseClicked="#handleSendMessage" size="25" strokeWidth="0.0" />
-            <MaterialDesignIconView glyphName="EMOTICON_HAPPY" layoutX="511.0" layoutY="40.0" size="25" />
+            <MaterialDesignIconView fill="#141313" glyphName="SEND" layoutX="468.0" layoutY="40.0" onMousePressed="#HandleOnSendMessage" size="25" strokeWidth="0.0" />
+            <MaterialDesignIconView glyphName="DOTS_VERTICAL" layoutX="511.0" layoutY="40.0" onMousePressed="#HandleOnMessageDetails" size="25" />
          </children>
       </AnchorPane>
-      <ScrollPane layoutX="285.0" layoutY="127.0" prefHeight="324.0" prefWidth="550.0" styleClass="chatareapane" stylesheets="@../styles/mainStyle.css" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+      <ScrollPane layoutX="285.0" layoutY="127.0" prefHeight="290.0" prefWidth="550.0" styleClass="chatareapane" stylesheets="@../styles/mainStyle.css" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
         <content>
-            <VBox prefHeight="322.0" prefWidth="548.0" styleClass="chatareapane" />
+            <VBox fx:id="Vbox" prefHeight="288.0" prefWidth="548.0" styleClass="chatareapane" />
         </content>
       </ScrollPane>
+      <AnchorPane fx:id="messageFormat" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="550.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXComboBox fx:id="fontFamily" labelFloat="true" layoutX="14.0" layoutY="8.0" prefHeight="10.0" prefWidth="171.0" promptText="font-family" />
+            <JFXComboBox fx:id="fontColor" labelFloat="true" layoutX="206.0" layoutY="8.0" prefHeight="10.0" promptText="color" />
+            <JFXComboBox fx:id="fontSize" labelFloat="true" layoutX="300.0" layoutY="8.0" prefHeight="25.0" prefWidth="62.0" promptText="size" />
+            <JFXButton layoutX="498.0" onAction="#HandleBold" prefHeight="10.0" prefWidth="60.0" text=" " AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <MaterialDesignIconView glyphName="FORMAT_BOLD" size="20" />
+               </graphic>
+            </JFXButton>
+            <JFXButton layoutX="450.0" onAction="#HandleUnderline" prefHeight="10.0" prefWidth="60.0" text=" " AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <MaterialDesignIconView glyphName="FORMAT_UNDERLINE" size="20" />
+               </graphic>
+            </JFXButton>
+            <JFXButton layoutX="460.0" layoutY="10.0" onAction="#handleItalicFont" prefHeight="10.0" prefWidth="60.0" text=" " AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <MaterialDesignIconView glyphName="FORMAT_ITALIC" size="20" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
