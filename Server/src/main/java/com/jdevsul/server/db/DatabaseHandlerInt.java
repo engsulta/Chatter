@@ -57,7 +57,7 @@ public interface DatabaseHandlerInt {
     public boolean removeFriendRequest(FriendRequest request, int type);
 
     //return the friend requests of specific id
-    public ArrayList<FriendRequest> getMyFriendRequests(int clientID);
+    public ArrayList<Client> getMyFriendRequests(int clientID);
 
     /*------------------------ Statistics ----------------------------*/
     public int getNumberOfAllClients();
