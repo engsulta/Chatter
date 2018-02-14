@@ -167,6 +167,7 @@ public class DatabaseHandler {
                 client.setClientPassword(resultSet.getString("clientPassword"));
                 client.setClientStatus(resultSet.getString("clientStatus"));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -198,6 +199,7 @@ public class DatabaseHandler {
                 client.setClientPassword(resultSet.getString("clientPassword"));
                 client.setClientStatus(resultSet.getString("clientStatus"));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -219,6 +221,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 clients.add(getClientByID(resultSet.getInt("clientID")));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -318,6 +321,7 @@ public class DatabaseHandler {
 
                 groups.add(newGroup);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -361,6 +365,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 contacts.add(getClientByID(resultSet.getInt("contactID")));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -432,7 +437,7 @@ public class DatabaseHandler {
                 contact.setClientID(request.getClientID());
                 contact.setContactID(request.getFriendID());
                 addNewContact(contact);
-                
+
                 Contact contact2 = new Contact();
                 contact2.setClientID(request.getFriendID());
                 contact2.setContactID(request.getClientID());
@@ -460,6 +465,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 friendRequests.add(getClientByID(resultSet.getInt("friendID")));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -482,6 +488,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 clients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -504,6 +511,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 onlineClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -526,6 +534,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 onlineClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -547,6 +556,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 femaleClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -568,6 +578,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 maleClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -589,7 +600,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 awayClients = resultSet.getInt(1);
             }
-
+resultSet.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in getting number of away clients");
@@ -610,6 +621,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 busyClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -631,6 +643,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 availableClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
