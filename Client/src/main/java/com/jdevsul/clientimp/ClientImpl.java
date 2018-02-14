@@ -15,9 +15,9 @@ import com.jdevsul.common.TheMessage;
 import com.jdevsul.main.MainController;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 
 /**
  *
@@ -27,6 +27,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     private static ClientImpl myInstance = null;
     private Client currentClient = null;
     private MainController mainController;
+    private ArrayList<Contact> myContacts;
 
     private ClientImpl() throws RemoteException {
     }
