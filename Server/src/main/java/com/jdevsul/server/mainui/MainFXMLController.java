@@ -27,6 +27,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -35,6 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -169,6 +171,22 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private void HandleStatisticsTab(Event event) {
+    }
+
+    @FXML
+    private void handleMouseDragged(MouseEvent event) {
+         loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        xoffset = loginStage.getX() - event.getScreenX();
+        yoffset = loginStage.getY() - event.getScreenY();
+
+    }
+
+    @FXML
+    private void handlePanePressed(MouseEvent event) {
+        loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        xoffset = loginStage.getX() - event.getScreenX();
+        yoffset = loginStage.getY() - event.getScreenY();
+
     }
 
 }
