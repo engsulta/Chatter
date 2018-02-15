@@ -662,44 +662,4 @@ public class DatabaseHandler {
         return availableClients;
     }
 
-    public static void main(String[] args) {
-
-        DatabaseHandler test = DatabaseHandler.getInstance();
-
-        Contact c = new Contact();
-        c.setClientID(3);
-        c.setContactID(4);
-        test.addNewContact(c);
-//        Client c = test.getClientByEmail("gh6@vv.com");
-//        System.out.println(c.getClientBirthdate().toString() + c.getClientCreationDate().toString() +c.getClientEmail() +c.getClientName());
-//        Contact c = new Contact();
-//        c.setClientID(4);
-//        c.setContactID(9);
-//        boolean t =test.addNewContact(c);
-//        System.out.println(t);
-//        Group g = new Group();
-//        g.setClientID(4);
-//        g.setGroupCreationDate(new Date(1998, 2, 4));
-//        g.setGroupID(3);
-//        g.setGroupName("hiiiiii");
-//        ArrayList<Integer> receiverID = new ArrayList<>();
-//        receiverID.add(5);
-//        receiverID.add(7);
-//        receiverID.add(3);
-//        receiverID.add(9);
-//        g.setReceiverID(receiverID);
-//        test.addNewGroup(g);
-//
-//        test.updateGroup(g);
-//        ArrayList<Group> g = test.getMyGroups(4);
-//        for (int i = 0; i < g.size(); i++) {
-//            System.out.println(g.get(i).getClientID() + g.get(i).getGroupID() + g.get(i).getGroupCreationDate().toString()
-//                    + g.get(i).getGroupName());
-//
-//            for (int j = 0; j < g.get(i).getReceiverID().size(); j++) {
-//                System.out.println(g.get(i).getReceiverID().get(j));
-//            }
-//        }
-    }
-
 }
