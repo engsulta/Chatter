@@ -6,17 +6,12 @@
 package com.jdevsul.server.mainui;
 
 import com.jdevsul.server.graph.GraphsHandler;
-import com.jdevsul.server.imp.ServerManagerImpl;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +24,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -88,6 +82,7 @@ public class MainFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controllerOperations = new ControllerOperations();
+        
         testGraphs();
         graphsHandler = new GraphsHandler();
 

@@ -45,7 +45,7 @@ public class LoginFxmlController implements Initializable {
             if (currentstage != null) {
                 ServerAssistUtil.loadWindow(getClass().getResource("/fxml/MainFXML.fxml"), currentstage, "Server Operator");
             }else
-                                ServerAssistUtil.loadWindow(getClass().getResource("/fxml/MainFXML.fxml"), null, "Server Operator");
+                ServerAssistUtil.loadWindow(getClass().getResource("/fxml/MainFXML.fxml"), null, "Server Operator");
 
         } else {
             AdminName.getStyleClass().add("text-error");

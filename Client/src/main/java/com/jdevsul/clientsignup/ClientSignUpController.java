@@ -6,6 +6,7 @@
 package com.jdevsul.clientsignup;
 
 import com.jdevsul.DBclasses.Client;
+import com.jdevsul.client.util.ClientUtil;
 import com.jdevsul.clientimp.ClientImpl;
 import com.jdevsul.interfaces.ClientInterface;
 import com.jdevsul.interfaces.ServerAuthInt;
@@ -20,10 +21,14 @@ import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -38,19 +43,20 @@ public class ClientSignUpController implements Initializable {
     private JFXPasswordField UserPassword;
     @FXML
     private JFXTextField Email;
+
     /*@FXML
     private JFXDatePicker Date_;
     @FXML
     private JFXComboBox<?> Gender;*/
-    
     private ServerManagerInt serverManagerRef;
     private ServerAuthInt server;
     boolean signUpFlag;
     private ClientInterface client;
-   // private Stage appStage;
+    private Stage appStage;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -61,63 +67,69 @@ public class ClientSignUpController implements Initializable {
             Registry reg = LocateRegistry.getRegistry(7474);
             serverManagerRef = (ServerManagerInt) reg.lookup("ChatService");
             server = serverManagerRef.getServerAuthentication();
+
+            Email.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if (!newValue) {
+                        if (Email.getText().isEmpty() || !Email.getText().matches("^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$")) {
+                            Email.getStyleClass().clear();
+                            Email.getStyleClass().add("text-error");
+                        }
+                        
+                        else{
+                            Email.getStyleClass().clear();
+                            Email.getStyleClass().add("text-field");
+                            
+                        }
+                    }
+
+                }
+            });
+
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(ClientSignUpController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+
+    }
 
     @FXML
     private void HandleSignUpAction(ActionEvent event) {
         Client newClient;
-        client= ClientImpl.getInstance();
-       // long millis;
+        client = ClientImpl.getInstance();
+        // long millis;
         String uName = UserName.getText();
         String uPass = UserPassword.getText();
         String uEmail = Email.getText();
-      //  Date date = (Date) Date.from(Date_.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-      //  String uGender = Gender.getValue().toString();
         if (!uName.isEmpty() && !uPass.isEmpty() && !uEmail.isEmpty()) {
             try {
                 //check if user registered before or not
-              //  appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 newClient = new Client();
-                newClient.setClientID(1);
                 newClient.setClientName(uName);
                 newClient.setClientPassword(uPass);
                 newClient.setClientEmail(uEmail);
-                // newClient.setClientBirthdate(" ");
                 newClient.setClientGender("female");
-                
-
-                /* millis=System.currentTimeMillis();  
-                 java.sql.Date date=new java.sql.Date(millis);  
-                newClient.setClientBirthdate(date);  */
-
-                //kda na2s set image
                 newClient.setClientStatus("Available");
-                //newClient.setClientCreationDate(date);
                 newClient.setClientImage("kkk");
-                newClient.setClientOnline(1);
-                 client.setCurrentClient(newClient);
-                 signUpFlag=server.signup(client);
+                newClient.setClientOnline(0);
+                client.setCurrentClient(newClient);
+                signUpFlag = server.signup(client);
 
-                if(signUpFlag)
-                {
+                if (signUpFlag) {
                     serverManagerRef.register(client);
-                    //ClientUtil.loadWindow(getClass().getResource("/fxml/Main.fxml"), appStage, "Login");
-                }
-                
-                else
+                    ClientUtil.loadWindow(getClass().getResource("/fxml/Main.fxml"), appStage, "Login");
+                } else {
                     System.err.println("User exists!");
-                
+                }
+
             } catch (RemoteException ex) {
                 Logger.getLogger(ClientSignUpController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
             //mfrod a create label fl UI 3nd el component elly fady
-            
+
         }
 
     }
@@ -134,9 +146,6 @@ public class ClientSignUpController implements Initializable {
     private void HandleBackAction(MouseEvent event) {
     }
 
-   
-
-
     @FXML
     private void HandleOnCameraPressed(MouseEvent event) {
     }
@@ -148,5 +157,5 @@ public class ClientSignUpController implements Initializable {
     @FXML
     private void HandleonMousePressed(MouseEvent event) {
     }
-    
+
 }

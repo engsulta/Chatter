@@ -75,21 +75,20 @@ public class DatabaseHandler {
         int affectedRows = 0;
         try {
             //Statement to be executed
-            PreparedStatement myStatement = con.prepareStatement("insert into client"
+           PreparedStatement myStatement = con.prepareStatement("insert into client"
                     + "(clientID,clientEmail,clientName,clientPassword,clientStatus,clientCreationDate"
                     + ",clientImage,clientGender,clientBirthdate,clientOnline)"
-                    + "values(?,?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            myStatement.setInt(1, client.getClientID());
+                    + "values(CLIENTIDSEQUENCE.nextval,?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            myStatement.setString(2, client.getClientEmail());
-            myStatement.setString(3, client.getClientName());
-            myStatement.setString(4, client.getClientPassword());
-            myStatement.setString(5, client.getClientStatus());
-            myStatement.setDate(6, client.getClientCreationDate());
-            myStatement.setString(7, client.getClientImage());
-            myStatement.setString(8, client.getClientGender());
-            myStatement.setDate(9, client.getClientBirthdate());
-            myStatement.setInt(10, client.getClientOnline());
+            myStatement.setString(1, client.getClientEmail());
+            myStatement.setString(2, client.getClientName());
+            myStatement.setString(3, client.getClientPassword());
+            myStatement.setString(4, client.getClientStatus());
+            myStatement.setDate(5, client.getClientCreationDate());
+            myStatement.setString(6, client.getClientImage());
+            myStatement.setString(7, client.getClientGender());
+            myStatement.setDate(8, client.getClientBirthdate());
+            myStatement.setInt(9, client.getClientOnline());
 
             affectedRows = myStatement.executeUpdate();
 

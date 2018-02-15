@@ -27,29 +27,32 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
     public boolean signup(ClientInterface clientRef) throws RemoteException {
         // not tested yet
         Client currentClient = clientRef.getCurrentClient();
-        boolean signup_flag = true;
+        boolean userExist = false;
+        boolean userAdded=false;
         ArrayList<Client> allClients = DatabaseHandler.getInstance().getAllClients();
         for (int i = 0; i < allClients.size(); i++) {
             if (allClients.get(i).getClientEmail().equals(currentClient.getClientEmail())) {
-                signup_flag = false;
+                userExist = true;
             }
 
         }
-        if(signup_flag)
-            DatabaseHandler.getInstance().addNewClient(clientRef.getCurrentClient());
-        return signup_flag;
+        if(!userExist)
+            userAdded=DatabaseHandler.getInstance().addNewClient(clientRef.getCurrentClient());
+        return userAdded;
     }
 
     @Override
     public Client login(String clientEmail, String clientPassword) throws RemoteException {
 
         Client client = DatabaseHandler.getInstance().getClientByEmail(clientEmail);
-
+        boolean invalidLogin;
         if (client != null) {
-            String password = client.getClientPassword();
-            if (clientPassword.equals(password)) {
-                return client;
+            if(!clientEmail.equals(client.getClientEmail()) || !clientPassword.equals(client.getClientPassword()))
+            {
+                client=null;
+                invalidLogin=true;
             }
+            
         }
 
         return client;
