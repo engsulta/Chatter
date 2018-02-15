@@ -28,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
@@ -42,6 +43,8 @@ import javafx.scene.text.Text;
  * @author sulta
  */
 public class MainFXMLController implements Initializable {
+
+    ControllerOperations controllerOperations;
 
     @FXML
     private StackPane rootPane;
@@ -75,23 +78,18 @@ public class MainFXMLController implements Initializable {
     private JFXButton renew;
     private GraphsHandler graphsHandler;
 
+    @FXML
+    private Button btnSendNotification;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        controllerOperations = new ControllerOperations();
         testGraphs();
         graphsHandler = new GraphsHandler();
-
-        try {
-            Registry reg = LocateRegistry.createRegistry(7474);
-            reg.rebind("ChatService", new ServerManagerImpl());
-            System.out.println("Server is up");
-
-        } catch (RemoteException ex) {
-            Logger.getLogger(MainFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }
 
@@ -148,7 +146,7 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private void HandleOnPowerPressed(MouseEvent event) {
-
+        controllerOperations.toggleService();
     }
 
     @FXML
@@ -169,6 +167,16 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     private void HandleStatisticsTab(Event event) {
+    }
+
+    @FXML
+    private void handleSendNotification(MouseEvent event) {
+        
+        try {
+            controllerOperations.sendNotification(null, "test title", "test content");
+        } catch (RemoteException ex) {
+            Logger.getLogger(MainFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

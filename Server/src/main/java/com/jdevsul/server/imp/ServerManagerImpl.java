@@ -23,6 +23,8 @@ import java.util.Vector;
  */
 public class ServerManagerImpl extends UnicastRemoteObject implements ServerManagerInt, Serializable {
 
+    private static ServerManagerImpl serverImpl = null;
+
     ServerAuthImpl authImpl = null;
     ServerSendImpl sendImpl = null;
     ServerGroupImpl groupImpl = null;
@@ -30,13 +32,20 @@ public class ServerManagerImpl extends UnicastRemoteObject implements ServerMana
     ServerContactImpl contactImpl = null;
     private static Vector<ClientInterface> clientsVector = null;
 
-    public ServerManagerImpl() throws RemoteException {
+    private ServerManagerImpl() throws RemoteException {
         clientsVector = new Vector<>();
         authImpl = new ServerAuthImpl();
         sendImpl = new ServerSendImpl(clientsVector);
         groupImpl = new ServerGroupImpl();
         requestImpl = new ServerRequestImpl();
         contactImpl = new ServerContactImpl();
+    }
+
+    public static ServerManagerImpl getInstance() throws RemoteException {
+        if (serverImpl == null) {
+            serverImpl = new ServerManagerImpl();
+        }
+        return serverImpl;
     }
 
     @Override

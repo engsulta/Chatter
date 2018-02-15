@@ -16,7 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import oracle.jdbc.OracleDriver;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,12 +45,17 @@ public class DatabaseHandler {
     private void connectToDB() {
         try {
             //open connection with database
-            DriverManager.registerDriver(new OracleDriver());
-            con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
+           // DriverManager.registerDriver(new OracleDriver());
+            //con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            con = DriverManager.getConnection("jdbc:derby://localhost:1527/sample", "app", "app");
+     
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in openning connection");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -72,17 +78,18 @@ public class DatabaseHandler {
             PreparedStatement myStatement = con.prepareStatement("insert into client"
                     + "(clientID,clientEmail,clientName,clientPassword,clientStatus,clientCreationDate"
                     + ",clientImage,clientGender,clientBirthdate,clientOnline)"
-                    + "values(CLIENTIDSEQUENCE.nextval,?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    + "values(?,?,?,?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            myStatement.setInt(1, client.getClientID());
 
-            myStatement.setString(1, client.getClientEmail());
-            myStatement.setString(2, client.getClientName());
-            myStatement.setString(3, client.getClientPassword());
-            myStatement.setString(4, client.getClientStatus());
-            myStatement.setDate(5, client.getClientCreationDate());
-            myStatement.setString(6, client.getClientImage());
-            myStatement.setString(7, client.getClientGender());
-            myStatement.setDate(8, client.getClientBirthdate());
-            myStatement.setInt(9, client.getClientOnline());
+            myStatement.setString(2, client.getClientEmail());
+            myStatement.setString(3, client.getClientName());
+            myStatement.setString(4, client.getClientPassword());
+            myStatement.setString(5, client.getClientStatus());
+            myStatement.setDate(6, client.getClientCreationDate());
+            myStatement.setString(7, client.getClientImage());
+            myStatement.setString(8, client.getClientGender());
+            myStatement.setDate(9, client.getClientBirthdate());
+            myStatement.setInt(10, client.getClientOnline());
 
             affectedRows = myStatement.executeUpdate();
 

@@ -5,6 +5,7 @@
  */
 package com.jdevsul.interfaces;
 
+import com.jdevsul.common.Notification;
 import com.jdevsul.common.TheFile;
 import com.jdevsul.common.TheMessage;
 import java.rmi.Remote;
@@ -19,4 +20,6 @@ public interface ServerSendInt extends Remote {
     public boolean sendFile(TheFile file) throws RemoteException;
 
     public void sendMsg(TheMessage message) throws RemoteException;
+
+    public void sendNotification(Notification notification) throws RemoteException;
 }

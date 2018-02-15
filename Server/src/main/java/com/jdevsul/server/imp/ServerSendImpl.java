@@ -5,6 +5,7 @@
  */
 package com.jdevsul.server.imp;
 
+import com.jdevsul.common.Notification;
 import com.jdevsul.common.TheFile;
 import com.jdevsul.common.TheMessage;
 import com.jdevsul.interfaces.ClientInterface;
@@ -42,7 +43,7 @@ public class ServerSendImpl extends UnicastRemoteObject implements ServerSendInt
     public void sendMsg(TheMessage message) throws RemoteException {
         for (ClientInterface clientRef : clientsImplRef) {
             for (int i = 0; i < message.getToID().size(); i++) {
-                
+
                 if (clientRef.getCurrentClient().getClientID() == message.getToID().get(i)) {
                     clientRef.recieveMsg(message);
                 }
@@ -50,4 +51,12 @@ public class ServerSendImpl extends UnicastRemoteObject implements ServerSendInt
 
         }
     }
+
+    @Override
+    public void sendNotification(Notification notification) throws RemoteException {
+        for (ClientInterface clientRef : clientsImplRef) {
+            clientRef.recieveNotification(notification);
+        }
+    }
+
 }

@@ -18,6 +18,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  *
@@ -27,7 +34,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     private static ClientImpl myInstance = null;
     private Client currentClient = null;
     private MainController mainController;
-    private ArrayList<Contact> myContacts;
+    private ArrayList<Client> myContacts;
 
     private ClientImpl() throws RemoteException {
     }
@@ -60,8 +67,28 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     }
 
     @Override
-    public void recieveNotification(Notification notification) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void recieveNotification(final Notification noti) throws RemoteException {
+        //System.out.println(notification.getTitle() + " " + notification.getContent());
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Notifications notificationBuilder = Notifications.create();
+                notificationBuilder.title(noti.getTitle());
+                notificationBuilder.text(noti.getContent());
+                //notificationBuilder.graphic(new ImageView("/javafx/notification/tick_green.png"));
+                notificationBuilder.hideAfter(Duration.seconds(3));
+                notificationBuilder.position(Pos.BOTTOM_RIGHT);
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        notificationBuilder.show();
+                    }
+                });
+            }
+        }).start();
+
     }
 
     @Override

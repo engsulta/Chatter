@@ -9,6 +9,7 @@ import com.jdevsul.clientimp.ClientImpl;
 import com.jdevsul.common.TheMessage;
 import com.jdevsul.interfaces.ServerManagerInt;
 import com.jdevsul.interfaces.ServerSendInt;
+import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.net.URL;
 import java.rmi.AccessException;
@@ -21,12 +22,17 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 /**
  * FXML Controller class
@@ -39,10 +45,27 @@ public class MainController implements Initializable {
     private ServerManagerInt serverManagerRef;
     private ServerSendInt serverSendRef;
 
-    @FXML
     private TextField msgTextField;
     @FXML
-    private MaterialDesignIconView sendButton;
+    private Circle headerPohto;
+    @FXML
+    private Label headerName;
+    @FXML
+    private Label headerStatus;
+    @FXML
+    private MaterialDesignIconView headerOnline;
+    @FXML
+    private TextField textMessage;
+    @FXML
+    private VBox Vbox;
+    @FXML
+    private AnchorPane messageFormat;
+    @FXML
+    private JFXComboBox<?> fontFamily;
+    @FXML
+    private JFXComboBox<?> fontColor;
+    @FXML
+    private JFXComboBox<?> fontSize;
 
     public MainController() {
         clientImpl = ClientImpl.getInstance();
@@ -63,7 +86,6 @@ public class MainController implements Initializable {
         }
     }
 
-    @FXML
     private void handleSendMessage(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
 
@@ -87,7 +109,6 @@ public class MainController implements Initializable {
 
     }
 
-    @FXML
     private void handleSendMessage(MouseEvent event) {
         String msgStr = msgTextField.getText().trim();
         int currentClientID = clientImpl.getCurrentClient().getClientID();
@@ -107,6 +128,38 @@ public class MainController implements Initializable {
 
     public void renderMessage(TheMessage message) {
         System.out.println(message.getBody());
+    }
+
+    @FXML
+    private void HandleOnSaveFile(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleOnAddgroup(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleOnFileSend(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleOnSendMessage(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleOnMessageDetails(MouseEvent event) {
+    }
+
+    @FXML
+    private void HandleBold(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleUnderline(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleItalicFont(ActionEvent event) {
     }
 
 }

@@ -13,7 +13,6 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  *
@@ -36,8 +35,8 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
             }
 
         }
-//        clients.add(clientRef);
-        DatabaseHandler.getInstance().addNewClient(clientRef.getCurrentClient());
+        if(signup_flag)
+            DatabaseHandler.getInstance().addNewClient(clientRef.getCurrentClient());
         return signup_flag;
     }
 
