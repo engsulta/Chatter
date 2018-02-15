@@ -212,14 +212,24 @@ public class DatabaseHandler {
         ArrayList<Client> clients = new ArrayList<>();
         try {
 
-            Statement myStatement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            //Statement to be executed
+            PreparedStatement myStatement = con.prepareStatement("select * from client",
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            String query = "select clientID from client";
-
-            ResultSet resultSet = myStatement.executeQuery(query);
-
+            ResultSet resultSet = myStatement.executeQuery();
             while (resultSet.next()) {
-                clients.add(getClientByID(resultSet.getInt("clientID")));
+                Client client = new Client();
+                client.setClientBirthdate(resultSet.getDate("clientBirthdate"));
+                client.setClientCreationDate(resultSet.getDate("clientCreationDate"));
+                client.setClientEmail(resultSet.getString("clientEmail"));
+                client.setClientGender(resultSet.getString("clientGender"));
+                client.setClientID(resultSet.getInt("clientID"));
+                client.setClientImage(resultSet.getString("clientImage"));
+                client.setClientName(resultSet.getString("clientName"));
+                client.setClientOnline(resultSet.getInt("clientOnline"));
+                client.setClientPassword(resultSet.getString("clientPassword"));
+                client.setClientStatus(resultSet.getString("clientStatus"));
+                clients.add(client);
             }
             resultSet.close();
 
@@ -600,7 +610,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 awayClients = resultSet.getInt(1);
             }
-resultSet.close();
+            resultSet.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in getting number of away clients");
