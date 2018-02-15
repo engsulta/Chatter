@@ -181,7 +181,7 @@ public class DatabaseHandler {
         try {
 
             //Statement to be executed
-            PreparedStatement myStatement = con.prepareStatement("select * from client where lower(clientEmail) =lower('?')",
+            PreparedStatement myStatement = con.prepareStatement("select * from client where lower(clientEmail) =lower(?)",
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             myStatement.setString(1, clientEmail);
