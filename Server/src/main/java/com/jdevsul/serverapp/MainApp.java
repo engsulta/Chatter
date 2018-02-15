@@ -21,14 +21,11 @@ public class MainApp extends Application {
         
         stage.setScene(scene);
         stage.show();
-         new Thread(new Runnable() {
-            @Override
-            public void run() {
+        
+        
                 DatabaseHandler.getInstance();
 
-            }
-        }).start();
-
+        
         }
 
     /**
