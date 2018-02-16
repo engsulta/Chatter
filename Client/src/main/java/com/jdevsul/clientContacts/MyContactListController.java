@@ -55,13 +55,8 @@ public class MyContactListController implements Initializable {
 
     @FXML
     private ListView<Client> myContactList;
-    private ServerManagerInt serverManagerRef;
     int currentClientID;
     ClientImpl clientImpl;
-
-    public MyContactListController() {
-
-    }
 
     public void updateMyContacts(ArrayList<Client> contacts) {
         //display online friends first
@@ -190,17 +185,9 @@ public class MyContactListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        try {
-            Registry reg = LocateRegistry.getRegistry(7474);
-            serverManagerRef = (ServerManagerInt) reg.lookup("ChatService");
-
-            clientImpl = ClientImpl.getInstance();
-            currentClientID = clientImpl.getCurrentClient().getClientID();
-
-        } catch (RemoteException | NotBoundException ex) {
-            Logger.getLogger(FriendRequestController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        clientImpl = ClientImpl.getInstance();
         //  myContactList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        currentClientID = clientImpl.getCurrentClient().getClientID();
 
     }
 

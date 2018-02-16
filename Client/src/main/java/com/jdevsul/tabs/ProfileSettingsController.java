@@ -5,6 +5,11 @@ package com.jdevsul.tabs;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.jdevsul.clientFriendRequest.FriendRequestController;
+import com.jdevsul.clientimp.ClientImpl;
+import com.jdevsul.interfaces.ServerAuthInt;
+import com.jdevsul.interfaces.ServerManagerInt;
+import com.jdevsul.interfaces.ServerRequestsInt;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -30,6 +35,10 @@ import javax.imageio.ImageIO;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -41,7 +50,7 @@ import javafx.event.EventHandler;
  * @author Eman
  */
 public class ProfileSettingsController implements Initializable {
-    
+
     @FXML
     private Circle headerPohto1;
     @FXML
@@ -55,44 +64,65 @@ public class ProfileSettingsController implements Initializable {
     @FXML
     private JFXComboBox<String> statusCombobox;
 
+    private ServerManagerInt serverManagerRef;
+    private ServerAuthInt serverAuthInt;
+    int currentClientID;
+    ClientImpl clientImpl;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        try {
+
+            Registry reg = LocateRegistry.getRegistry(7474);
+            serverManagerRef = (ServerManagerInt) reg.lookup("ChatService");
+            serverAuthInt = serverManagerRef.getServerAuthentication();
+            clientImpl = ClientImpl.getInstance();
+            currentClientID = clientImpl.getCurrentClient().getClientID();
+
+        } catch (RemoteException | NotBoundException ex) {
+            Logger.getLogger(FriendRequestController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ObservableList<String> status = FXCollections.observableArrayList("Available", "Away", "Busy");
         statusCombobox.setItems(status);
         statusCombobox.setValue("Available");
-         statusCombobox.setOnAction(new EventHandler() {
+        statusCombobox.setOnAction(new EventHandler() {
             public void handle(Event t) {
 
-               String selectedFontSize = statusCombobox.getValue();
-                System.out.println(selectedFontSize);
+                try {
+                    String selectedstatus = statusCombobox.getValue();
+                    clientImpl.getCurrentClient().setClientStatus(selectedstatus);
+                    serverAuthInt.updateMe(clientImpl);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ProfileSettingsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         });
     }
-    
+
     @FXML
     private void HandleOnBackPressed(MouseEvent event) {
     }
-    
+
     @FXML
     private void HandleOnCamera(MouseEvent event) {
         showOpenFileDialog();
     }
-    
+
     @FXML
     private void HandleOnNameChange(MouseEvent event) {
     }
-    
+
     private void showOpenFileDialog() {
         try {
             FileChooser fileChooser = new FileChooser();
-            
+
             List<String> imagesType = new ArrayList<>();
-            
+
             imagesType.add("*.jpg");
             imagesType.add("*.png");
             imagesType.add("*.jpeg");
@@ -107,11 +137,11 @@ public class ProfileSettingsController implements Initializable {
             BufferedImage bufferedImage = ImageIO.read(file);
             Image myImage = SwingFXUtils.toFXImage(bufferedImage, null);
             ImagePattern myimImagePattern = new ImagePattern(myImage);
-            
+
             headerPohto1.setFill(myimImagePattern);
-            
+
             headerPohto1.setVisible(true);
-            
+
             String imageString = ImageToBase64(myImage);
             //send this array of bytes to server
             //byte[] imageBytes = imageString.getBytes();
@@ -119,19 +149,19 @@ public class ProfileSettingsController implements Initializable {
             Logger.getLogger(ProfileSettingsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public Image Base64ToImage(String image) {
-        
+
         byte[] imageBytes = Base64.decode(image);
         ByteArrayInputStream is = new ByteArrayInputStream(imageBytes);
-        
+
         Image newImage = new Image(is);
         return newImage;
-        
+
     }
-    
+
     public String ImageToBase64(Image img) throws IOException {
-        
+
         BufferedImage bImage = SwingFXUtils.fromFXImage(img, null);
         byte[] res;
         try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
@@ -141,5 +171,5 @@ public class ProfileSettingsController implements Initializable {
         String myImageS = Base64.encode(res);
         return myImageS;
     }
-    
+
 }

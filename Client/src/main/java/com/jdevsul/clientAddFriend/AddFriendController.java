@@ -6,25 +6,16 @@
 package com.jdevsul.clientAddFriend;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.FriendRequest;
-import com.jdevsul.DBclasses.Contact;
 import com.jdevsul.clientFriendRequest.FriendRequestController;
 import com.jdevsul.clientimp.ClientImpl;
 import com.jdevsul.interfaces.ServerAuthInt;
