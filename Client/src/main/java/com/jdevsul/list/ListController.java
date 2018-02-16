@@ -5,10 +5,14 @@
  */
 package com.jdevsul.list;
 
+import com.jdevsul.client.util.ClientUtil;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
@@ -18,27 +22,22 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
+ * FXML Controller class
  *
- * @author szmoh
+ * @author sulta
  */
-public class ListController {
+public class ListController implements Initializable {
 
     @FXML
     private AnchorPane contactList;
     @FXML
     private TextField searchFriend;
     @FXML
-    private JFXTabPane tabName;
-    @FXML
-    private Tab homeTab;
-    @FXML
     private ListView<?> myContactList1;
     @FXML
     private Circle headerPohto;
     @FXML
     private Circle headerPohto2;
-    @FXML
-    private Tab profileTab;
     @FXML
     private AnchorPane addFriend;
     @FXML
@@ -48,8 +47,6 @@ public class ListController {
     @FXML
     private Text errorMessage;
     @FXML
-    private Tab settingsTab;
-    @FXML
     private AnchorPane profileSettings;
     @FXML
     private Circle profilePohto;
@@ -58,23 +55,29 @@ public class ListController {
     @FXML
     private JFXTextField status;
     @FXML
-    private Tab notificationTab;
-    @FXML
     private AnchorPane notification;
     @FXML
     private ListView<?> friendRequestList;
     @FXML
     private Circle headerPohto11;
-
     @FXML
-    private void HandleOnhomeSelect(Event event) {
+    private Tab homeTab;
+    @FXML
+    private Tab profileTab;
+    @FXML
+    private Tab settingsTab;
+    @FXML
+    private Tab notificationTab;
+    @FXML
+    private JFXTabPane tabName;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
     }
 
-    @FXML
-    private void HandleOnprofileSelect(Event event) {
-    }
 
-    @FXML
+    @FXML 
     private void HandleOnCamera(MouseEvent event) {
     }
 
@@ -87,11 +90,20 @@ public class ListController {
     }
 
     @FXML
+    private void HandleOnhomeSelect(Event event) {
+    }
+
+    @FXML
+    private void HandleOnprofileSelect(Event event) {
+    }
+
+    @FXML
     private void HandleOnSettingsSelect(Event event) {
     }
 
     @FXML
     private void HandleOnNotificationSelect(Event event) {
     }
+
     
 }

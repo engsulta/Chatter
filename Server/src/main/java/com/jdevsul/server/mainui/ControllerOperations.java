@@ -25,6 +25,7 @@ public class ControllerOperations {
 
     private Registry reg;
     private boolean serviceEnabled;
+    private MainFXMLController Main;
 
     public ControllerOperations() {
         serviceEnabled = false;
@@ -34,9 +35,10 @@ public class ControllerOperations {
     void startService() {
 
         try {
-            reg = LocateRegistry.createRegistry(7474);
+            reg = LocateRegistry.createRegistry(Integer.parseInt(Main.getServerportNumberString()));
             reg.rebind("ChatService", ServerManagerImpl.getInstance());
             System.out.println("Server is up");
+            
         } catch (RemoteException ex) {
             Logger.getLogger(ControllerOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,13 +54,15 @@ public class ControllerOperations {
         }
     }
 
-    void toggleService() {
+    String toggleService() {
         if (isServiceEnabled()) {
             stopService();
             setServiceEnabled(false);
+            return ("SERVER OFF");
         } else {
             startService();
             setServiceEnabled(true);
+            return ("SERVER ON");
         }
     }
 
@@ -76,7 +80,7 @@ public class ControllerOperations {
         this.serviceEnabled = serviceEnabled;
     }
 
-    public void sendNotification(String imgURL, String title, String content) throws RemoteException {
+    public static void sendNotification(String imgURL, String title, String content) throws RemoteException {
         Notification notification = new Notification();
 
         ArrayList<Integer> usersIDs = new ArrayList<>();
@@ -93,5 +97,11 @@ public class ControllerOperations {
 
         ServerManagerImpl.getInstance().getServerSend().sendNotification(notification);
     }
+
+
+    public  void setmain(MainFXMLController main){
+    Main=main;
+    }
+
 
 }

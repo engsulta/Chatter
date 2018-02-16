@@ -14,7 +14,7 @@ public interface ClientInterface extends Remote {
 
     public void recieveMsg(TheMessage message) throws RemoteException;
 
-    public void recieveFile(TheFile file) throws RemoteException;
+    public boolean recieveFile(TheFile file) throws RemoteException;
 
     public void recieveContact(Contact contact) throws RemoteException; //when you send and the friend accept will call this method to invoke you 
 
