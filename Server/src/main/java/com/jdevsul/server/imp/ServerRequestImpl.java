@@ -21,7 +21,10 @@ import java.util.ArrayList;
  */
 public class ServerRequestImpl extends UnicastRemoteObject implements ServerRequestsInt, Serializable {
 
+    DatabaseHandler dbHandler;
+
     ServerRequestImpl() throws RemoteException {
+        dbHandler = DatabaseHandler.getInstance();
     }
 
     @Override
@@ -45,4 +48,8 @@ public class ServerRequestImpl extends UnicastRemoteObject implements ServerRequ
         return DatabaseHandler.getInstance().getMyFriendRequests(myID);
     }
 
+    @Override
+    public void removeFriendRequest(FriendRequest fr, int status) throws RemoteException {
+        dbHandler.removeFriendRequest(fr, status);
+    }
 }
