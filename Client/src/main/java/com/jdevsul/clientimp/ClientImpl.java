@@ -40,8 +40,34 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     private Client currentClient = null;
     private MainController mainController;
     private ArrayList<Client> myContacts;
-    private ArrayList<FriendRequest> myfriendrequests;
+    private ArrayList<Client> mySentfriendrequests;
+    private ArrayList<Client> myRecievedfriendrequests;
+
     private ArrayList<Group> myGroups;
+
+    public ArrayList<Client> getMyContacts() {
+        return myContacts;
+    }
+
+    public void setMyContacts(ArrayList<Client> myContacts) {
+        this.myContacts = myContacts;
+    }
+
+    public ArrayList<Client> getMySentfriendrequests() {
+        return mySentfriendrequests;
+    }
+
+    public void setMySentfriendrequests(ArrayList<Client> mySentfriendrequests) {
+        this.mySentfriendrequests = mySentfriendrequests;
+    }
+
+    public ArrayList<Client> getMyRecievedfriendrequests() {
+        return myRecievedfriendrequests;
+    }
+
+    public void setMyRecievedfriendrequests(ArrayList<Client> myRecievedfriendrequests) {
+        this.myRecievedfriendrequests = myRecievedfriendrequests;
+    }
 
     private ClientImpl() throws RemoteException {
     }
@@ -111,7 +137,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
     @Override
     public void setCurrentClient(Client client) {
-        this.currentClient= new Client();
+        this.currentClient = new Client();
         this.currentClient = client;
     }
 
@@ -122,14 +148,14 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     synchronized void recieveChunck(TheFile myfile) {
         //byte[] file, int off, String name
         //in server it will check to and get this client and send to it 
-        String default_path="";
+        String default_path = "";
         byte[] file = myfile.getData();
         String name = myfile.getName();
         int length = myfile.getSize();
         FileOutputStream fout = null;
         try {
 
-            fout = new FileOutputStream(default_path+name, true);
+            fout = new FileOutputStream(default_path + name, true);
             fout.write(file);
 //            BufferedOutputStream bout=new BufferedOutputStream(fout);
 //            //bout.write(file);

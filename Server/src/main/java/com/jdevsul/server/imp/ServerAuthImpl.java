@@ -28,7 +28,7 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
         // not tested yet
         Client currentClient = clientRef.getCurrentClient();
         boolean userExist = false;
-        boolean userAdded=false;
+        boolean userAdded = false;
         ArrayList<Client> allClients = DatabaseHandler.getInstance().getAllClients();
         for (int i = 0; i < allClients.size(); i++) {
             if (allClients.get(i).getClientEmail().equals(currentClient.getClientEmail())) {
@@ -36,10 +36,10 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
             }
 
         }
-        if(!userExist)
-            userAdded=DatabaseHandler.getInstance().addNewClient(clientRef.getCurrentClient());
-           
-        
+        if (!userExist) {
+            userAdded = DatabaseHandler.getInstance().addNewClient(clientRef.getCurrentClient());
+        }
+
         return userAdded;
     }
 
@@ -49,12 +49,11 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
         Client client = DatabaseHandler.getInstance().getClientByEmail(clientEmail);
         boolean invalidLogin;
         if (client != null) {
-            if(!clientEmail.equals(client.getClientEmail()) || !clientPassword.equals(client.getClientPassword()))
-            {
-                client=null;
-                invalidLogin=true;
+            if (!clientEmail.equals(client.getClientEmail()) || !clientPassword.equals(client.getClientPassword())) {
+                client = null;
+                invalidLogin = true;
             }
-            
+
         }
 
         return client;
@@ -70,6 +69,10 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
+    @Override
+    public Client searchForClient(String Email) throws RemoteException {
+        Client client = DatabaseHandler.getInstance().getClientByEmail(Email);
+        return client;
+    }
 
 }
