@@ -38,6 +38,8 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
         }
         if(!userExist)
             userAdded=DatabaseHandler.getInstance().addNewClient(clientRef.getCurrentClient());
+           
+        
         return userAdded;
     }
 
