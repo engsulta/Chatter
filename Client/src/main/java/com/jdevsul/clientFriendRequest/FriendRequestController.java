@@ -115,7 +115,7 @@ public class FriendRequestController implements Initializable {
 //                                @Override
 //                                public void handle(MouseEvent event) {
 //
-//                                    friendText.setText(String.valueOf(myFriend.getClientID()));
+//                                  //  friendText.setText(String.valueOf(myFriend.getClientID()));
 //
 //                                }
 //                            });
@@ -182,6 +182,7 @@ public class FriendRequestController implements Initializable {
 //            }
 //        });
 //    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

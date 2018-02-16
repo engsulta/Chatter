@@ -9,11 +9,11 @@ import com.jdevsul.DBclasses.Client;
 import com.jdevsul.helper.ServerHelper;
 import com.jdevsul.server.db.DatabaseHandler;
 import com.jdevsul.server.graph.GraphsHandler;
+
 import com.jdevsul.server.imp.ServerManagerImpl;
 import com.jdevsul.server.util.ServerAssistUtil;
+
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -22,8 +22,6 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +36,6 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -107,8 +104,10 @@ public class MainFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controllerOperations = new ControllerOperations();
+
         controllerOperations.setmain(this);
 
+        
         graphsHandler = new GraphsHandler();
         initGraphs();
 

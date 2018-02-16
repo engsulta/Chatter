@@ -111,6 +111,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
     @Override
     public void setCurrentClient(Client client) {
+        this.currentClient= new Client();
         this.currentClient = client;
     }
 

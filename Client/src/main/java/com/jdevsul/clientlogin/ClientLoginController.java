@@ -46,6 +46,8 @@ public class ClientLoginController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,7 +77,7 @@ public class ClientLoginController implements Initializable {
                 userPassword.getStyleClass().add("text-error");
                 userPassword.getStyleClass().add("text-error");
                 //7aga mo2ktn
-                System.out.println("Invalid username or password");
+                System.err.println("Invalid username or password");
             }
         } catch (RemoteException ex) {
             Logger.getLogger(ClientLoginController.class.getName()).log(Level.SEVERE, null, ex);
