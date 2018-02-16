@@ -51,6 +51,13 @@
 //    }
 //
 //public void updateMyContacts(ArrayList<Client> contacts) {
+// //display online friends first
+//Collections.sort(contacts, new Comparator<Client>() {
+//            @Override
+//            public int compare(Client c1, Client c2) {
+//                return c1.getClientOnline() - c2.getClientOnline();
+//            }
+//        });
 //        ObservableList<Client> myContacts = FXCollections.observableArrayList(contacts);
 //
 //        //add the contacts to the listView
