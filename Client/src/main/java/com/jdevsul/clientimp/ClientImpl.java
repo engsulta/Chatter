@@ -64,8 +64,9 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     }
 
     @Override
-    public void recieveFile(TheFile file) throws RemoteException {
+    public boolean recieveFile(TheFile file) throws RemoteException {
         recieveChunck(file);
+        return true;
     }
 
     @Override
