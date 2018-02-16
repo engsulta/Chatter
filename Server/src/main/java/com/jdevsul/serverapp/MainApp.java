@@ -3,6 +3,7 @@ package com.jdevsul.serverapp;
 
 
 import com.jdevsul.server.db.DatabaseHandler;
+import com.jdevsul.server.util.ServerAssistUtil;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -15,15 +16,19 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-       Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginFxml.fxml"));
+    //   Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginFxml.fxml"));
+        ServerAssistUtil.loadWindow(getClass().getResource("/fxml/LoginFxml.fxml"), null, "ServerLogin");
+      //  Scene scene = new Scene(root);
         
-        Scene scene = new Scene(root);
+       // stage.setScene(scene);
+       // stage.show();
         
-        stage.setScene(scene);
-        stage.show();
-        
-        
+        new Thread(new Runnable() {
+           @Override
+           public void run() {
                 DatabaseHandler.getInstance();
+           }
+       }).start();
 
         
         }

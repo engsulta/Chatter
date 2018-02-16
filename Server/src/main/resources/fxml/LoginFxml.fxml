@@ -4,11 +4,12 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="589.0" stylesheets="@../styles/loginfxml.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdevsul.server.login.LoginFxmlController">
+<AnchorPane fx:id="loginpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#handleMouseDragged" onMousePressed="#handlePanePressed" prefHeight="314.0" prefWidth="589.0" stylesheets="@../styles/loginfxml.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdevsul.server.login.LoginFxmlController">
    <children>
       <FontAwesomeIconView glyphName="LOCK" layoutX="196.0" size="50" wrappingWidth="22.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="20.0" />
       <FontAwesomeIconView glyphName="USER" size="25" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />
@@ -32,5 +33,7 @@
             <Image url="@../images/welcom.png" />
          </image>
       </ImageView>
+      <MaterialDesignIconView glyphName="CLOSE" layoutX="569.0" layoutY="19.0" onMousePressed="#HandleOnClosePressed" />
+      <MaterialDesignIconView glyphName="MINUS" layoutX="547.0" layoutY="20.0" onMousePressed="#handleOnMinimizePressed" />
    </children>
 </AnchorPane>
