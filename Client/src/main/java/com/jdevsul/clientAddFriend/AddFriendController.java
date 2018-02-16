@@ -5,7 +5,6 @@
 // */
 //package com.jdevsul.clientAddFriend;
 //
-//
 //import com.jfoenix.controls.JFXButton;
 //import com.jfoenix.controls.JFXTextField;
 //import java.net.URL;
@@ -26,7 +25,6 @@
 //import com.jdevsul.DBclasses.Client;
 //import com.jdevsul.DBclasses.FriendRequest;
 //import com.jdevsul.DBclasses.Contact;
-//
 //
 ///**
 // * FXML Controller class
@@ -59,41 +57,38 @@
 //        //then check that this email has not already existed in contacts of user
 //        //then check that this email has not already had a friend request from user
 //
-//        Client client = databaseHandler.getClientByEmail(email);
+//        if (!email.trim().isEmpty()) {
+//            Client client = databaseHandler.getClientByEmail(email);
 //
-//        //first check that this email exists
-//        if (client == null) {
-//            errorMessage.setText("Please enter a valid email");
-//        } else {
-//            //check that this email has not already existed in contacts of user
-//            Contact contact = new Contact();
-//            contact.setClientID(clientID);
-//            contact.setContactID(client.getClientID());
-//            boolean isContact = databaseHandler.isContact(contact);
-//            if (isContact) {
-//                errorMessage.setText("You and this user are already friends");
+//            //first check that this email exists
+//            if (client == null) {
+//                errorMessage.setText("Please enter a valid email");
 //            } else {
-//                //check that this email has not already had a friend request from user
-//                FriendRequest friendRequest = new FriendRequest();
-//                friendRequest.setClientID(client.getClientID());
-//                friendRequest.setFriendID(clientID);
-//                boolean isFriendRequestExist = databaseHandler.isFriendRequestExist(friendRequest);
-//                if (isFriendRequestExist) {
-//                    errorMessage.setText("You had already sent a friend request before to this person");
+//                //check that this email has not already existed in contacts of user
+//                Contact contact = new Contact();
+//                contact.setClientID(clientID);
+//                contact.setContactID(client.getClientID());
+//                boolean isContact = databaseHandler.isContact(contact);
+//                if (isContact) {
+//                    errorMessage.setText("You and this user are already friends");
 //                } else {
-//                    //send friend request
-//                    errorMessage.setText("Friend request has been sent sucessfully");
-//                    databaseHandler.addNewFriendRequest(friendRequest);
+//                    //check that this email has not already had a friend request from user
+//                    FriendRequest friendRequest = new FriendRequest();
+//                    friendRequest.setClientID(client.getClientID());
+//                    friendRequest.setFriendID(clientID);
+//                    boolean isFriendRequestExist = databaseHandler.isFriendRequestExist(friendRequest);
+//                    if (isFriendRequestExist) {
+//                        errorMessage.setText("You had already sent a friend request before to this person");
+//                    } else {
+//                        //send friend request
+//                        errorMessage.setText("Friend request has been sent sucessfully");
+//                        databaseHandler.addNewFriendRequest(friendRequest);
 //
+//                    }
 //                }
+//
 //            }
-//
 //        }
-//    }
-//
-//    @FXML
-//    private void onEnter(ActionEvent event) {
-//        //addNewFriend(1, friendEmail.getText().trim());
 //    }
 //
 //    @FXML
@@ -101,12 +96,7 @@
 //    }
 //
 //    @FXML
-//    private void SendRequest(MouseDragEvent event) {
-//         addNewFriend(1, friendEmail.getText().trim());
-//    }
-//
-//    @FXML
-//    private void send(DragEvent event) {
+//    private void HandleOnSendRequest2(MouseEvent event) {
 //        addNewFriend(1, friendEmail.getText().trim());
 //    }
 //
