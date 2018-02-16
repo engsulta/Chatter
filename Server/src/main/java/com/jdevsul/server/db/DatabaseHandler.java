@@ -16,8 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import oracle.jdbc.OracleDriver;
 
 /**
  *
@@ -45,17 +44,12 @@ public class DatabaseHandler {
     private void connectToDB() {
         try {
             //open connection with database
-           // DriverManager.registerDriver(new OracleDriver());
-            //con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/sample;upgrade=true", "app", "app");
-     
+            DriverManager.registerDriver(new OracleDriver());
+            con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in openning connection");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
