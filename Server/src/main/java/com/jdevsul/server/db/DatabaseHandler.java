@@ -48,7 +48,7 @@ public class DatabaseHandler {
            // DriverManager.registerDriver(new OracleDriver());
             //con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/sample", "app", "app");
+            con = DriverManager.getConnection("jdbc:derby://localhost:1527/sample;upgrade=true", "app", "app");
      
 
         } catch (SQLException ex) {

@@ -11,8 +11,8 @@ import com.jdevsul.interfaces.ServerManagerInt;
 import com.jdevsul.interfaces.ServerSendInt;
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import java.io.File;
 import java.net.URL;
-import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -33,6 +34,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -66,6 +69,11 @@ public class MainController implements Initializable {
     private JFXComboBox<?> fontColor;
     @FXML
     private JFXComboBox<?> fontSize;
+    
+    @FXML
+    private MaterialDesignIconView attachFile;
+    
+    private Stage chooserStage;
 
     public MainController() {
         clientImpl = ClientImpl.getInstance();
@@ -95,7 +103,7 @@ public class MainController implements Initializable {
             ArrayList<Integer> myList = new ArrayList<>();
             myList.add(5);
 
-//hena hakml el data lama el fxml y5ls
+            //hena hakml el data lama el fxml y5ls
             TheMessage msg = new TheMessage(currentClientID, myList, msgStr, null, null, null, LocalDateTime.now());
             try {
 
@@ -140,6 +148,17 @@ public class MainController implements Initializable {
 
     @FXML
     private void HandleOnFileSend(MouseEvent event) {
+   
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Choose file");
+        File file = chooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+        // newFileUpload.setFile(file);
+
+        int currentClientID = clientImpl.getCurrentClient().getClientID();
+        ArrayList<Integer> myList = new ArrayList<>();
+        myList.add(2);
+    //    TheFile newFile = new TheFile(currentClientID, myList, data, name, LocalTime.MIN, currentClientID);
+            
     }
 
     @FXML

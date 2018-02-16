@@ -42,6 +42,8 @@ public class ClientSignUpController implements Initializable {
     @FXML
     private JFXPasswordField UserPassword;
     @FXML
+    private JFXPasswordField UserPassword1;
+    @FXML
     private JFXTextField Email;
 
     /*@FXML
@@ -75,17 +77,51 @@ public class ClientSignUpController implements Initializable {
                         if (Email.getText().isEmpty() || !Email.getText().matches("^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$")) {
                             Email.getStyleClass().clear();
                             Email.getStyleClass().add("text-error");
-                        }
-                        
-                        else{
+                        } else {
                             Email.getStyleClass().clear();
                             Email.getStyleClass().add("text-field");
-                            
+
                         }
                     }
 
                 }
             });
+
+            UserName.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if (!newValue) {
+                        if (UserName.getText().isEmpty() || !UserName.getText().matches("^[a-zA-Z]+([ ][a-zA-Z]*)*$")) {
+                            UserName.getStyleClass().clear();
+                            UserName.getStyleClass().add("text-error");
+                        } else {
+                            UserName.getStyleClass().clear();
+                            UserName.getStyleClass().add("text-field");
+                        }
+                    }
+                }
+
+            });
+
+            UserPassword1.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if (!newValue) {
+                        if (!UserPassword.getText().equals(UserPassword1.getText())) {
+                            UserPassword.getStyleClass().clear();
+                            UserPassword.getStyleClass().add("text-error");
+                            UserPassword1.getStyleClass().clear();
+                            UserPassword1.getStyleClass().add("text-error");
+                        } else {
+                            UserPassword.getStyleClass().clear();
+                            UserPassword.getStyleClass().add("text-field");
+                            UserPassword1.getStyleClass().clear();
+                            UserPassword1.getStyleClass().add("text-field");
+                        }
+                    }
+                }
+            }
+            );
 
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(ClientSignUpController.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,7 +139,6 @@ public class ClientSignUpController implements Initializable {
         String uEmail = Email.getText();
         if (!uName.isEmpty() && !uPass.isEmpty() && !uEmail.isEmpty()) {
             try {
-                //check if user registered before or not
                 appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 newClient = new Client();
                 newClient.setClientName(uName);
@@ -114,6 +149,7 @@ public class ClientSignUpController implements Initializable {
                 newClient.setClientImage("kkk");
                 newClient.setClientOnline(0);
                 client.setCurrentClient(newClient);
+
                 signUpFlag = server.signup(client);
 
                 if (signUpFlag) {
