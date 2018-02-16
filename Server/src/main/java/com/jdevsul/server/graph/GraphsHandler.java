@@ -39,14 +39,14 @@ public class GraphsHandler {
 
         data.add(new PieChart.Data("offline clients (" + myhandler.getNumberOfOfflineClients() + ")", myhandler.getNumberOfOfflineClients()));
 
-        data.add(new PieChart.Data("online Books (" + myhandler.getNumberOfOnlineClients() + ")", myhandler.getNumberOfOnlineClients()));
+        data.add(new PieChart.Data("online clients (" + myhandler.getNumberOfOnlineClients() + ")", myhandler.getNumberOfOnlineClients()));
         return data;
     }
 
     public ObservableList<PieChart.Data> getGenderGraphStatistics() {
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
-        data.add(new PieChart.Data("offline clients (" + myhandler.getNumberOfMaleClients() + ")", myhandler.getNumberOfOfflineClients()));
-        data.add(new PieChart.Data("online Books (" + myhandler.getNumberOfFemaleClients() + ")", myhandler.getNumberOfOnlineClients()));
+        data.add(new PieChart.Data("Male clients (" + myhandler.getNumberOfMaleClients() + ")", myhandler.getNumberOfOfflineClients()));
+        data.add(new PieChart.Data("female clients (" + myhandler.getNumberOfFemaleClients() + ")", myhandler.getNumberOfOnlineClients()));
         return data;
     }
 

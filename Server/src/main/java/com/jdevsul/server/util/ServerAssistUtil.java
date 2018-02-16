@@ -23,7 +23,7 @@ import javafx.stage.StageStyle;
  */
 public class ServerAssistUtil {
 
-    private static final String img_loc = "/fxml/images/logo2.png";
+    private static final String img_loc = "/images/logo2.png";
 
     private static void setStageImage(Stage stage) {
         stage.getIcons().add(new Image(img_loc));

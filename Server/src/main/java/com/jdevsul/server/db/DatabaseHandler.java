@@ -167,6 +167,7 @@ public class DatabaseHandler {
                 client.setClientPassword(resultSet.getString("clientPassword"));
                 client.setClientStatus(resultSet.getString("clientStatus"));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -180,7 +181,7 @@ public class DatabaseHandler {
         try {
 
             //Statement to be executed
-            PreparedStatement myStatement = con.prepareStatement("select * from client where lower(clientEmail) =lower('?')",
+            PreparedStatement myStatement = con.prepareStatement("select * from client where lower(clientEmail) =lower(?)",
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             myStatement.setString(1, clientEmail);
@@ -198,6 +199,7 @@ public class DatabaseHandler {
                 client.setClientPassword(resultSet.getString("clientPassword"));
                 client.setClientStatus(resultSet.getString("clientStatus"));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -210,15 +212,26 @@ public class DatabaseHandler {
         ArrayList<Client> clients = new ArrayList<>();
         try {
 
-            Statement myStatement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            //Statement to be executed
+            PreparedStatement myStatement = con.prepareStatement("select * from client",
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            String query = "select clientID from client";
-
-            ResultSet resultSet = myStatement.executeQuery(query);
-
+            ResultSet resultSet = myStatement.executeQuery();
             while (resultSet.next()) {
-                clients.add(getClientByID(resultSet.getInt("clientID")));
+                Client client = new Client();
+                client.setClientBirthdate(resultSet.getDate("clientBirthdate"));
+                client.setClientCreationDate(resultSet.getDate("clientCreationDate"));
+                client.setClientEmail(resultSet.getString("clientEmail"));
+                client.setClientGender(resultSet.getString("clientGender"));
+                client.setClientID(resultSet.getInt("clientID"));
+                client.setClientImage(resultSet.getString("clientImage"));
+                client.setClientName(resultSet.getString("clientName"));
+                client.setClientOnline(resultSet.getInt("clientOnline"));
+                client.setClientPassword(resultSet.getString("clientPassword"));
+                client.setClientStatus(resultSet.getString("clientStatus"));
+                clients.add(client);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -318,6 +331,7 @@ public class DatabaseHandler {
 
                 groups.add(newGroup);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -361,6 +375,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 contacts.add(getClientByID(resultSet.getInt("contactID")));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -432,7 +447,7 @@ public class DatabaseHandler {
                 contact.setClientID(request.getClientID());
                 contact.setContactID(request.getFriendID());
                 addNewContact(contact);
-                
+
                 Contact contact2 = new Contact();
                 contact2.setClientID(request.getFriendID());
                 contact2.setContactID(request.getClientID());
@@ -460,6 +475,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 friendRequests.add(getClientByID(resultSet.getInt("friendID")));
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -482,6 +498,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 clients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -504,6 +521,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 onlineClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -526,6 +544,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 onlineClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -547,6 +566,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 femaleClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -568,6 +588,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 maleClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -589,7 +610,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 awayClients = resultSet.getInt(1);
             }
-
+            resultSet.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in getting number of away clients");
@@ -610,6 +631,7 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 busyClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -631,52 +653,13 @@ public class DatabaseHandler {
             while (resultSet.next()) {
                 availableClients = resultSet.getInt(1);
             }
+            resultSet.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in getting number of available clients");
         }
         return availableClients;
-    }
-
-    public static void main(String[] args) {
-
-        DatabaseHandler test = DatabaseHandler.getInstance();
-
-        Contact c = new Contact();
-        c.setClientID(3);
-        c.setContactID(4);
-        test.addNewContact(c);
-//        Client c = test.getClientByEmail("gh6@vv.com");
-//        System.out.println(c.getClientBirthdate().toString() + c.getClientCreationDate().toString() +c.getClientEmail() +c.getClientName());
-//        Contact c = new Contact();
-//        c.setClientID(4);
-//        c.setContactID(9);
-//        boolean t =test.addNewContact(c);
-//        System.out.println(t);
-//        Group g = new Group();
-//        g.setClientID(4);
-//        g.setGroupCreationDate(new Date(1998, 2, 4));
-//        g.setGroupID(3);
-//        g.setGroupName("hiiiiii");
-//        ArrayList<Integer> receiverID = new ArrayList<>();
-//        receiverID.add(5);
-//        receiverID.add(7);
-//        receiverID.add(3);
-//        receiverID.add(9);
-//        g.setReceiverID(receiverID);
-//        test.addNewGroup(g);
-//
-//        test.updateGroup(g);
-//        ArrayList<Group> g = test.getMyGroups(4);
-//        for (int i = 0; i < g.size(); i++) {
-//            System.out.println(g.get(i).getClientID() + g.get(i).getGroupID() + g.get(i).getGroupCreationDate().toString()
-//                    + g.get(i).getGroupName());
-//
-//            for (int j = 0; j < g.get(i).getReceiverID().size(); j++) {
-//                System.out.println(g.get(i).getReceiverID().get(j));
-//            }
-//        }
     }
 
 }

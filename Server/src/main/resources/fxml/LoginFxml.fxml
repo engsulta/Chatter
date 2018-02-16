@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -32,5 +33,7 @@
             <Image url="@../images/welcom.png" />
          </image>
       </ImageView>
+      <MaterialDesignIconView glyphName="CLOSE" layoutX="569.0" layoutY="19.0" onMousePressed="#HandleOnClosePressed" />
+      <MaterialDesignIconView glyphName="MINUS" layoutX="547.0" layoutY="20.0" onMousePressed="#handleOnMinimizePressed" />
    </children>
 </AnchorPane>

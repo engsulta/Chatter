@@ -5,6 +5,7 @@
  */
 package com.jdevsul.server.login;
 
+import com.jdevsul.helper.ServerHelper;
 import com.jdevsul.server.util.ServerAssistUtil;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -37,6 +38,7 @@ public class LoginFxmlController implements Initializable {
     private Stage loginStage;
     private double xoffset;
     private double yoffset;
+
     /**
      * Initializes the controller class.
      */
@@ -71,17 +73,33 @@ public class LoginFxmlController implements Initializable {
 
     @FXML
     private void handleMouseDragged(MouseEvent event) {
-         loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        System.out.println("dragged");
+
+        loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        loginStage.setX(event.getScreenX() + xoffset);
+        loginStage.setY(event.getScreenY() + yoffset);
+
+    }
+
+    @FXML
+    private void handlePanePressed(MouseEvent event) {
+        System.out.println("pressed");
+
+        loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         xoffset = loginStage.getX() - event.getScreenX();
         yoffset = loginStage.getY() - event.getScreenY();
 
     }
 
     @FXML
-    private void handlePanePressed(MouseEvent event) {
-        loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        xoffset = loginStage.getX() - event.getScreenX();
-        yoffset = loginStage.getY() - event.getScreenY();
+    private void HandleOnClosePressed(MouseEvent event) {
+        ServerHelper.closeWindow(((Node) event.getSource()).getScene().getWindow());
+
+    }
+
+    @FXML
+    private void handleOnMinimizePressed(MouseEvent event) {
+        ServerHelper.minimizeWindow(((Node) event.getSource()).getScene().getWindow());
 
     }
 

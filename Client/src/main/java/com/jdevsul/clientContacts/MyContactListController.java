@@ -45,16 +45,12 @@
 //    @FXML
 //    private ListView<Client> myContactList;
 //
-//    @FXML
-//    private TextField test1;
-//    @FXML
-//    private Button done;
 //
 //    public MyContactListController() {
 //
 //    }
 //
-//    public void updateMyContacts(ArrayList<Client> contacts) {
+//public void updateMyContacts(ArrayList<Client> contacts) {
 //        ObservableList<Client> myContacts = FXCollections.observableArrayList(contacts);
 //
 //        //add the contacts to the listView
@@ -66,7 +62,7 @@
 //            public ListCell<Client> call(ListView<Client> param) {
 //                return new ListCell<Client>() {
 //                    @Override
-//                    protected void updateItem(final Client myContact, boolean empty) {
+//                    protected void updateItem(Client myContact, boolean empty) {
 //                        super.updateItem(myContact, empty);
 //
 //                        //containerVBox include all boxes
@@ -136,9 +132,9 @@
 //                                    group.setClientID(myContact.getClientID());
 //
 //                                    ArrayList<Client> selectedClients = new ArrayList<>();
-//                                    for (Client client : selectedItems) {
+//                                    selectedItems.forEach((client) -> {
 //                                        selectedClients.add(client);
-//                                    }
+//                                    });
 //
 ////                                    String test = "";
 ////                                    for (Client c : selectedItems) {
@@ -165,19 +161,18 @@
 //                            contactOnline.setFitHeight(15);
 //
 //                            status.getChildren().add(contactStatus);
-//                            status.setAlignment(Pos.BOTTOM_CENTER);
+//                            status.setAlignment(Pos.BASELINE_CENTER);
 //
 //                            images.getChildren().addAll(contactImage, contactOnline);
 //                            images.setAlignment(Pos.BASELINE_LEFT);
-//                            images.setId("imageshbox");
+//                            images.setSpacing(-10);
 //
 //                            name.getChildren().add(contactName);
 //                            name.setAlignment(Pos.BASELINE_CENTER);
 //
 //                            info.getChildren().addAll(images, name);
-//                            info.setSpacing(30);
+//                            info.setSpacing(40);
 //
-//                            containerVBox.setId("contactvbox");
 //                            containerVBox.getChildren().addAll(info, status);
 //
 //                            setGraphic(containerVBox);
@@ -189,7 +184,6 @@
 //            }
 //        });
 //    }
-//
 //    /**
 //     * Initializes the controller class.
 //     */
@@ -199,12 +193,6 @@
 //        myContactList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 //
 //    }
-//
-//    @FXML
-//    private void onEnter(ActionEvent event) {
-//        DatabaseHandler s = DatabaseHandler.getInstance();
-//        ArrayList<Client> t = s.getMyContacts(1);
-//        updateMyContacts(t);
-//    }
+
 //
 //}
