@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jdevsul.server.util;
+package com.jdevsul.common;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +11,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,27 +25,39 @@ import java.util.logging.Logger;
  */
 public class FileRMI extends UnicastRemoteObject implements Serializable {
 
-    File serverStorageFile;
     public FileRMI() throws RemoteException {
-        serverStorageFile = new File("/Users/gehad/ServerStorage");
-        serverStorageFile.mkdir();
+   
     }
 
-    public void setFile(File serverStorageFile)
+    public void startFileRegistry() throws RemoteException
     {
-        this.serverStorageFile = serverStorageFile;
+        try {
+            Registry reg = LocateRegistry.createRegistry(7070);
+            FileRMI newFileUpload = new FileRMI();
+            reg.bind("remoteObject", newFileUpload);
+            System.out.println("Server is ready.");
+            System.out.println("7070");
+        } catch (RemoteException ex) {
+            Logger.getLogger(FileRMI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AlreadyBoundException ex) {
+            Logger.getLogger(FileRMI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
     }
-    public void uploadFileToServer(byte[] mydata, int length) throws RemoteException {
+    public void uploadFileToServer(byte[] mydata, String serverpath) throws RemoteException {
 
-        try (FileOutputStream out = new FileOutputStream(serverStorageFile)) {
+        try {
+            File serverpathfile = new File(serverpath);
+            FileOutputStream out = new FileOutputStream(serverpathfile);
             byte[] data = mydata;
 
             out.write(data);
             out.flush();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileRMI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(FileRMI.class.getName()).log(Level.SEVERE, null, ex);
+            out.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
         }
 
         System.out.println("Done writing data...");

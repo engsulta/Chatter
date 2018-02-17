@@ -6,7 +6,6 @@
 package com.jdevsul.common;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -19,20 +18,18 @@ public class TheFile implements Serializable{
     private byte[] data;
     private String name;  
     private LocalTime time;
-    private int size;
 
     @Override
     public String toString() {
-        return "TheFile{" + "fromID=" + fromID + ", toID=" + toID + ", data=" + data + ", name=" + name + ", time=" + time + ", size=" + size + '}';
+        return "TheFile{" + "fromID=" + fromID + ", toID=" + toID + ", data=" + data + ", name=" + name + ", time=" + time + '}';
     }
 
-    public TheFile(int fromID, int toID, byte[] data, String name, LocalTime time, int size) {
+    public TheFile(int fromID, int toID, byte[] data, String name, LocalTime time) {
         this.fromID = fromID;
         this.toID = toID;
         this.data = data;
         this.name = name;
         this.time = time;
-        this.size = size;
     }
 
     public int getFromID() {
@@ -73,14 +70,6 @@ public class TheFile implements Serializable{
 
     public void setTime(LocalTime time) {
         this.time = time;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
 }

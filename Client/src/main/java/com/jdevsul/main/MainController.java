@@ -6,18 +6,23 @@ package com.jdevsul.main;
  * and open the template in the editor.
  */
 import com.jdevsul.clientimp.ClientImpl;
+import com.jdevsul.common.FileRMI;
+import com.jdevsul.common.TheFile;
 import com.jdevsul.common.TheMessage;
 import com.jdevsul.interfaces.ServerManagerInt;
 import com.jdevsul.interfaces.ServerSendInt;
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -148,16 +153,31 @@ public class MainController implements Initializable {
 
     @FXML
     private void HandleOnFileSend(MouseEvent event) {
-   
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Choose file");
-        File file = chooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-        // newFileUpload.setFile(file);
-
-        int currentClientID = clientImpl.getCurrentClient().getClientID();
-        ArrayList<Integer> myList = new ArrayList<>();
-        myList.add(2);
-    //    TheFile newFile = new TheFile(currentClientID, myList, data, name, LocalTime.MIN, currentClientID);
+        
+        try {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Choose file");
+            File UploadFile = chooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+           
+            String clientpathfile = UploadFile.getAbsolutePath();
+            byte [] mydata=new byte[(int) clientpathfile.length()];
+            FileInputStream in=new FileInputStream(clientpathfile);
+            System.out.println("uploading to server");
+            in.read(mydata, 0, mydata.length);
+            in.close();
+            
+            int currentClientID = clientImpl.getCurrentClient().getClientID();
+            int receiverID = 2;
+            TheFile newFile = new TheFile(currentClientID, receiverID, mydata, UploadFile.getName(), LocalTime.MIN );
+            
+            FileRMI fileRMI = new FileRMI();         
+            fileRMI.startFileRegistry();
+            
+            serverSendRef.sendFile(newFile);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
             
     }
 
@@ -180,5 +200,6 @@ public class MainController implements Initializable {
     @FXML
     private void handleItalicFont(ActionEvent event) {
     }
-
+  
+   
 }

@@ -8,29 +8,29 @@ package com.jdevsul.clientimp;
 import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.Contact;
 import com.jdevsul.DBclasses.FriendRequest;
+import com.jdevsul.common.FileRMI;
 import com.jdevsul.common.Notification;
 import com.jdevsul.common.ServerAdsense;
 import com.jdevsul.common.TheFile;
 import com.jdevsul.interfaces.ClientInterface;
 import com.jdevsul.common.TheMessage;
 import com.jdevsul.main.MainController;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-
 /**
  *
  */
@@ -65,7 +65,27 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
     @Override
     public boolean recieveFile(TheFile file) throws RemoteException {
-        recieveChunck(file);
+        try {
+            //recieveChunck(file);
+            Registry myreg = LocateRegistry.getRegistry("127.0.0.1", 7070);
+            
+            FileRMI fileRMI = (FileRMI)myreg.lookup("remoteObject");
+            
+            String serverpathfile = "/Users/gehad/ServerStorage/" +file.getName();
+            String clientpath ="/Users/gehad/ServerStorage/downloaded"+file.getName();
+            byte[] mydata = fileRMI.downloadFileFromServer(serverpathfile);
+            System.out.println("downloading...");
+            
+            File clientpathfile = new File(clientpath);
+            FileOutputStream out = new FileOutputStream(clientpathfile);
+            out.write(mydata);
+            out.flush();
+            out.close();
+            
+            return true;
+        } catch (NotBoundException | IOException ex) {
+            Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return true;
     }
 
@@ -122,7 +142,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     synchronized void recieveChunck(TheFile myfile) {
         //byte[] file, int off, String name
         //in server it will check to and get this client and send to it 
-        String default_path="";
+       /* String default_path="";
         byte[] file = myfile.getData();
         String name = myfile.getName();
         int length = myfile.getSize();
@@ -130,14 +150,14 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
         try {
 
             fout = new FileOutputStream(default_path+name, true);
-            fout.write(file);
+            fout.write(file);*/
 //            BufferedOutputStream bout=new BufferedOutputStream(fout);
 //            //bout.write(file);
 //            bout.write(file);
 //            bout.flush();
 //            bout.close();
-            fout.close();
-            System.out.println("success");
+        /*    fout.close();
+            System.out.println("success");*/
 
 //        try {
 //
@@ -149,7 +169,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 //        } catch (Exception e) {
 //            System.out.println(e);
 //        }
-        } catch (FileNotFoundException ex) {
+      /*  } catch (FileNotFoundException ex) {
             Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -159,7 +179,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
             } catch (IOException ex) {
                 Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/
     }
 
 }

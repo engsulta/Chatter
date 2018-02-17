@@ -10,10 +10,10 @@ import com.jdevsul.common.TheFile;
 import com.jdevsul.common.TheMessage;
 import com.jdevsul.interfaces.ClientInterface;
 import com.jdevsul.interfaces.ServerSendInt;
-import com.jdevsul.server.util.FileRMI;
+import com.jdevsul.common.FileRMI;
 import java.io.Serializable;
 import java.rmi.AccessException;
-import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -34,16 +34,17 @@ public class ServerSendImpl extends UnicastRemoteObject implements ServerSendInt
         this.clientsImplRef = clients;
     }
 
+ 
     @Override
-    public boolean sendFile(TheFile file) throws RemoteException {
+    public boolean sendFile(TheFile file) throws RemoteException { 
+        try { 
+            //upload
+            Registry myreg = LocateRegistry.getRegistry("127.0.0.1", 7070);
+            FileRMI fileRMI = (FileRMI)myreg.lookup("remoteObject");
 
-        try {
-            Registry reg = LocateRegistry.createRegistry(7070);
-            FileRMI newFileUpload = new FileRMI();
-            reg.bind("remoteObject", newFileUpload);
-            System.out.println("Server is ready.");
-            System.out.println("7070");
-
+            String serverpathfile = "/Users/gehad/ServerStorage/" +file.getName();
+            fileRMI.uploadFileToServer(file.getData(), serverpathfile);
+            
             for (ClientInterface clientRef : clientsImplRef) {
                 if (clientRef.getCurrentClient().getClientID() == file.getToID()) {
                     clientRef.recieveFile(file);
@@ -51,11 +52,12 @@ public class ServerSendImpl extends UnicastRemoteObject implements ServerSendInt
                 }
             }
 
-        } catch (AlreadyBoundException | AccessException ex) {
+        } catch (AccessException ex) {
+            Logger.getLogger(ServerSendImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
             Logger.getLogger(ServerSendImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-
     }
 
     @Override
