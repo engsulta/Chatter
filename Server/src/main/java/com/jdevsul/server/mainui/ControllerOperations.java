@@ -9,6 +9,7 @@ import com.jdevsul.DBclasses.Client;
 import com.jdevsul.common.Notification;
 import com.jdevsul.server.db.DatabaseHandler;
 import com.jdevsul.server.imp.ServerManagerImpl;
+import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -35,10 +36,12 @@ public class ControllerOperations {
     void startService() {
 
         try {
-            reg = LocateRegistry.createRegistry(Integer.parseInt(Main.getServerportNumberString()));
+            if (reg == null) {
+                reg = LocateRegistry.createRegistry(Integer.parseInt(Main.getServerportNumberString()));
+            }
             reg.rebind("ChatService", ServerManagerImpl.getInstance());
             System.out.println("Server is up");
-            
+
         } catch (RemoteException ex) {
             Logger.getLogger(ControllerOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,13 +52,14 @@ public class ControllerOperations {
 
         try {
             reg.unbind("ChatService");
+            System.out.println("Server is down");
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(ControllerOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     String toggleService() {
-        if (isServiceEnabled()) {
+        if (isServiceEnabled() == true) {
             stopService();
             setServiceEnabled(false);
             return ("SERVER OFF");
@@ -98,10 +102,8 @@ public class ControllerOperations {
         ServerManagerImpl.getInstance().getServerSend().sendNotification(notification);
     }
 
-
-    public  void setmain(MainFXMLController main){
-    Main=main;
+    public void setmain(MainFXMLController main) {
+        Main = main;
     }
-
 
 }

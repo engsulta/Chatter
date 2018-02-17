@@ -37,26 +37,26 @@ public class ServerSendImpl extends UnicastRemoteObject implements ServerSendInt
  
     @Override
     public boolean sendFile(TheFile file) throws RemoteException { 
-        try { 
-            //upload
-            Registry myreg = LocateRegistry.getRegistry("127.0.0.1", 7070);
-            FileRMI fileRMI = (FileRMI)myreg.lookup("remoteObject");
-
-            String serverpathfile = "/Users/gehad/ServerStorage/" +file.getName();
-            fileRMI.uploadFileToServer(file.getData(), serverpathfile);
-            
-            for (ClientInterface clientRef : clientsImplRef) {
-                if (clientRef.getCurrentClient().getClientID() == file.getToID()) {
-                    clientRef.recieveFile(file);
-                    return true;
-                }
-            }
-
-        } catch (AccessException ex) {
-            Logger.getLogger(ServerSendImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
-            Logger.getLogger(ServerSendImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try { 
+//            //upload
+//            Registry myreg = LocateRegistry.getRegistry("127.0.0.1", 7070);
+//            FileRMI fileRMI = (FileRMI)myreg.lookup("remoteObject");
+//
+//            String serverpathfile = "/Users/gehad/ServerStorage/" +file.getName();
+//            fileRMI.uploadFileToServer(file.getData(), serverpathfile);
+//            
+//            for (ClientInterface clientRef : clientsImplRef) {
+//                if (clientRef.getCurrentClient().getClientID() == file.getToID()) {
+//                    clientRef.recieveFile(file);
+//                    return true;
+//                }
+//            }
+//
+//        } catch (AccessException ex) {
+//            Logger.getLogger(ServerSendImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (NotBoundException ex) {
+//            Logger.getLogger(ServerSendImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         return false;
     }
 

@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import com.jdevsul.helper.ClientHelper;
 
 /**
  * FXML Controller class
@@ -43,9 +44,13 @@ public class ClientLoginController implements Initializable {
     private JFXTextField UserName;
     @FXML
     private JFXPasswordField userPassword;
+    private Stage loginStage;
+    private double xoffset;
+    private double yoffset;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -66,15 +71,20 @@ public class ClientLoginController implements Initializable {
 
         try {
             appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            clientImpl = ClientImpl.getInstance();
             currentClient = serverAuthRef.login(UserName.getText().trim(), userPassword.getText().trim());
 
             if (currentClient != null) {
+
+                clientImpl = ClientImpl.getInstance();
+                //clientImpl.setSession(new Session());
+                //clientImpl.setCurrentconn(currentconn);
                 clientImpl.setCurrentClient(currentClient);
                 serverManagerRef.register(clientImpl);
-                ClientUtil.loadWindow(getClass().getResource("/fxml/list.fxml"), appStage, "Login");
+
+                ClientUtil.loadWindow(getClass().getResource("/fxml/Main.fxml"), appStage, "Login");
+
             } else {
-                userPassword.getStyleClass().add("text-error");
+                UserName.getStyleClass().add("text-error");
                 userPassword.getStyleClass().add("text-error");
                 //7aga mo2ktn
                 System.err.println("Invalid username or password");
@@ -87,14 +97,22 @@ public class ClientLoginController implements Initializable {
 
     @FXML
     private void HandleForgetPasswordAction(MouseEvent event) {
+        appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        ClientUtil.loadWindow(getClass().getResource("/fxml/ForgetPassword.fxml"), appStage, "forgetpassword");
+
     }
 
     @FXML
     private void HandleCloseAction(MouseEvent event) {
+        ClientHelper.closeWindow(((Node) event.getSource()).getScene().getWindow());
+
     }
 
     @FXML
     private void HandleMinimizeAction(MouseEvent event) {
+        ClientHelper.minimizeWindow(((Node) event.getSource()).getScene().getWindow());
+
     }
 
     @FXML
@@ -111,10 +129,18 @@ public class ClientLoginController implements Initializable {
 
     @FXML
     private void HandleonMouseDrage(MouseEvent event) {
+
+        loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        loginStage.setX(event.getScreenX() + xoffset);
+        loginStage.setY(event.getScreenY() + yoffset);
+
     }
 
     @FXML
     private void HandleonMousePressed(MouseEvent event) {
+        loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        xoffset = loginStage.getX() - event.getScreenX();
+        yoffset = loginStage.getY() - event.getScreenY();
     }
 
 }

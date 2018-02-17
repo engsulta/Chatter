@@ -7,6 +7,7 @@ package com.jdevsul.clientimp;
 
 import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.Contact;
+import com.jdevsul.DBclasses.FriendRequest;
 import com.jdevsul.common.FileRMI;
 import com.jdevsul.common.Notification;
 import com.jdevsul.common.ServerAdsense;
@@ -14,6 +15,8 @@ import com.jdevsul.common.TheFile;
 import com.jdevsul.interfaces.ClientInterface;
 import com.jdevsul.common.TheMessage;
 import com.jdevsul.main.MainController;
+import com.jdevsul.servicehandler.Connection;
+import com.jdevsul.servicehandler.Session;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,6 +33,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+
 /**
  *
  */
@@ -41,8 +45,10 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     private ArrayList<Client> myContacts;
     private ArrayList<Client> mySentfriendrequests;
     private ArrayList<Client> myRecievedfriendrequests;
-
+    private ArrayList<FriendRequest> myfriendrequests;
     private ArrayList<Group> myGroups;
+    private Session session;
+    private Connection currentconn;
 
     public ArrayList<Client> getMyContacts() {
         return myContacts;
@@ -92,21 +98,22 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     public boolean recieveFile(TheFile file) throws RemoteException {
         try {
             //recieveChunck(file);
-            Registry myreg = LocateRegistry.getRegistry("127.0.0.1", 7070);
-            
-            FileRMI fileRMI = (FileRMI)myreg.lookup("remoteObject");
-            
-            String serverpathfile = "/Users/gehad/ServerStorage/" +file.getName();
-            String clientpath ="/Users/gehad/ServerStorage/downloaded"+file.getName();
+            Registry myreg = LocateRegistry.getRegistry("127.0.0.1", 7474);
+
+            FileRMI fileRMI = (FileRMI) myreg.lookup("ChatService");
+
+            //mnnsash hena n3'yr el path
+            String serverpathfile = "/files/" + file.getName();
+            String clientpath = "/Users/gehad/ServerStorage/downloaded" + file.getName();
             byte[] mydata = fileRMI.downloadFileFromServer(serverpathfile);
             System.out.println("downloading...");
-            
+
             File clientpathfile = new File(clientpath);
             FileOutputStream out = new FileOutputStream(clientpathfile);
             out.write(mydata);
             out.flush();
             out.close();
-            
+
             return true;
         } catch (NotBoundException | IOException ex) {
             Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,7 +174,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     synchronized void recieveChunck(TheFile myfile) {
         //byte[] file, int off, String name
         //in server it will check to and get this client and send to it 
-       /* String default_path="";
+        /* String default_path="";
         byte[] file = myfile.getData();
         String name = myfile.getName();
         int length = myfile.getSize();
@@ -178,8 +185,8 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
             fout = new FileOutputStream(default_path+name, true);
             fout.write(file);*/
 //            fout = new FileOutputStream(default_path + name, true);
-  //          fout.write(file);
-  //origin/master
+        //          fout.write(file);
+        //origin/master
 //            BufferedOutputStream bout=new BufferedOutputStream(fout);
 //            //bout.write(file);
 //            bout.write(file);
@@ -198,7 +205,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 //        } catch (Exception e) {
 //            System.out.println(e);
 //        }
-      /*  } catch (FileNotFoundException ex) {
+        /*  } catch (FileNotFoundException ex) {
             Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,6 +216,39 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
                 Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }*/
+    }
+    
+
+    public ArrayList<FriendRequest> getMyfriendrequests() {
+        return myfriendrequests;
+    }
+
+    public void setMyfriendrequests(ArrayList<FriendRequest> myfriendrequests) {
+        this.myfriendrequests = myfriendrequests;
+    }
+
+    public ArrayList<Group> getMyGroups() {
+        return myGroups;
+    }
+
+    public void setMyGroups(ArrayList<Group> myGroups) {
+        this.myGroups = myGroups;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Connection getCurrentconn() {
+        return currentconn;
+    }
+
+    public void setCurrentconn(Connection currentconn) {
+        this.currentconn = currentconn;
     }
 
 }

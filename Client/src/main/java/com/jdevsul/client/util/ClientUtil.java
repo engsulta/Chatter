@@ -30,14 +30,14 @@ public class ClientUtil {
     }
 
     public static void loadWindow(URL loc, Stage parentStage, String name) {
-          Stage stage=null;
+        Stage stage = null;
         try {
             Parent parent = FXMLLoader.load(loc);
-            if (parentStage!=null){
-                stage =parentStage;
-                
-            }else{
-                stage=new Stage(StageStyle.UNDECORATED);
+            if (parentStage != null) {
+                stage = parentStage;
+
+            } else {
+                stage = new Stage(StageStyle.UNDECORATED);
             }
             stage.setTitle(name);
             stage.setScene(new Scene(parent));
