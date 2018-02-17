@@ -72,7 +72,7 @@ public class ClientLoginController implements Initializable {
             if (currentClient != null) {
                 clientImpl.setCurrentClient(currentClient);
                 serverManagerRef.register(clientImpl);
-                ClientUtil.loadWindow(getClass().getResource("/fxml/Main.fxml"), appStage, "Login");
+                ClientUtil.loadWindow(getClass().getResource("/fxml/list.fxml"), appStage, "Login");
             } else {
                 userPassword.getStyleClass().add("text-error");
                 userPassword.getStyleClass().add("text-error");
