@@ -65,8 +65,8 @@ public class ServerAuthImpl extends UnicastRemoteObject implements ServerAuthInt
     }
 
     @Override
-    public void updateMe(ClientInterface client) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean updateMe(ClientInterface client) throws RemoteException {
+        return DatabaseHandler.getInstance().updateClient(client.getCurrentClient());
     }
 
     @Override

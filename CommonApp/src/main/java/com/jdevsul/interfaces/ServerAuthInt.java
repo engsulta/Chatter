@@ -21,7 +21,7 @@ public interface ServerAuthInt extends Remote{
 
     public boolean logout(ClientInterface clientRef) throws RemoteException;
 
-    public void updateMe(ClientInterface client) throws RemoteException;
+    public boolean updateMe(ClientInterface client) throws RemoteException;
     
     public Client searchForClient(String Email) throws RemoteException;
 
