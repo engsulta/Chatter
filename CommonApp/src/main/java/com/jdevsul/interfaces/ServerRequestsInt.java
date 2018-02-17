@@ -23,4 +23,6 @@ public interface ServerRequestsInt extends Remote{
     public void addNewRequest(FriendRequest request) throws RemoteException;
 
     public ArrayList<Client> getMyRequested(int myID) throws RemoteException;
+    
+    public void removeFriendRequest(FriendRequest fr, int status) throws RemoteException;
 }

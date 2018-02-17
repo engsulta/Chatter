@@ -7,7 +7,6 @@ package com.jdevsul.clientimp;
 
 import com.jdevsul.DBclasses.Client;
 import com.jdevsul.DBclasses.Contact;
-import com.jdevsul.DBclasses.FriendRequest;
 import com.jdevsul.common.FileRMI;
 import com.jdevsul.common.Notification;
 import com.jdevsul.common.ServerAdsense;
@@ -40,8 +39,34 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     private Client currentClient = null;
     private MainController mainController;
     private ArrayList<Client> myContacts;
-    private ArrayList<FriendRequest> myfriendrequests;
+    private ArrayList<Client> mySentfriendrequests;
+    private ArrayList<Client> myRecievedfriendrequests;
+
     private ArrayList<Group> myGroups;
+
+    public ArrayList<Client> getMyContacts() {
+        return myContacts;
+    }
+
+    public void setMyContacts(ArrayList<Client> myContacts) {
+        this.myContacts = myContacts;
+    }
+
+    public ArrayList<Client> getMySentfriendrequests() {
+        return mySentfriendrequests;
+    }
+
+    public void setMySentfriendrequests(ArrayList<Client> mySentfriendrequests) {
+        this.mySentfriendrequests = mySentfriendrequests;
+    }
+
+    public ArrayList<Client> getMyRecievedfriendrequests() {
+        return myRecievedfriendrequests;
+    }
+
+    public void setMyRecievedfriendrequests(ArrayList<Client> myRecievedfriendrequests) {
+        this.myRecievedfriendrequests = myRecievedfriendrequests;
+    }
 
     private ClientImpl() throws RemoteException {
     }
@@ -131,7 +156,7 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
     @Override
     public void setCurrentClient(Client client) {
-        this.currentClient= new Client();
+        this.currentClient = new Client();
         this.currentClient = client;
     }
 
@@ -149,8 +174,12 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
         FileOutputStream fout = null;
         try {
 
+<<<<<<< HEAD
             fout = new FileOutputStream(default_path+name, true);
             fout.write(file);*/
+//            fout = new FileOutputStream(default_path + name, true);
+  //          fout.write(file);
+  //origin/master
 //            BufferedOutputStream bout=new BufferedOutputStream(fout);
 //            //bout.write(file);
 //            bout.write(file);
