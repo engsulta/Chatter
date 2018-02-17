@@ -61,6 +61,7 @@ import javax.imageio.ImageIO;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import javafx.scene.control.SelectionMode;
 
 /**
  * FXML Controller class
@@ -115,6 +116,7 @@ public class ListController implements Initializable {
     private ServerRequestsInt serverRequestsInt;
     private ServerContactInt serverContactInt;
     int currentClientID;
+    ArrayList<Client> clients = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -138,6 +140,8 @@ public class ListController implements Initializable {
             } catch (RemoteException ex) {
                 Logger.getLogger(ListController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            myContactList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
             updateMyContacts2(test);
             ObservableList<String> status = FXCollections.observableArrayList("Available", "Away", "Busy");
@@ -216,7 +220,7 @@ public class ListController implements Initializable {
             public ListCell<Client> call(ListView<Client> param) {
                 return new ListCell<Client>() {
                     @Override
-                    protected void updateItem(Client myContact, boolean empty) {
+                    protected void updateItem(final Client myContact, boolean empty) {
                         try {
                             super.updateItem(myContact, empty);
                             System.err.println("FXML resource: " + getClass().getResource("/fxml/CustomList2.fxml"));
@@ -243,6 +247,19 @@ public class ListController implements Initializable {
                                 contactImage.setRadius(25);
                                 contactImage.setVisible(true);
 
+                                 final ObservableList<Client> selectedClients = myContactList.getSelectionModel().getSelectedItems();
+                                parent.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                       
+                                        for (Client client : selectedClients) {
+                                            clients.add(client);
+                                            System.out.println(client.getClientID());
+                                            
+                                        }
+                                    }
+
+                                });
                                 if (myContact.getClientOnline() == 0) {
                                     contactOnline.setFill(Color.GREEN);
                                 } else {
