@@ -18,6 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import oracle.jdbc.OracleDriver;
 
 /**
  *
@@ -44,17 +45,15 @@ public class DatabaseHandler {
 
     private void connectToDB() {
         try {
-            //open connection with database
-            //DriverManager.registerDriver(new OracleDriver());
-            //con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/sample", "app", "app");
+//            open connection with database
+            DriverManager.registerDriver(new OracleDriver());
+            con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
+//            Class.forName("org.apache.derby.jdbc.ClientDriver");
+//            con = DriverManager.getConnection("jdbc:derby://localhost:1527/sample", "app", "app");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in openning connection");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -74,9 +73,9 @@ public class DatabaseHandler {
         int affectedRows = 0;
         try {
             try (PreparedStatement myStatement = con.prepareStatement("insert into client2"
-                            + "(clientEmail,clientName,clientPassword,clientStatus"
-                            + ",clientImage,clientGender,clientOnline)"
-                            + "values(?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                    + "(clientEmail,clientName,clientPassword,clientStatus"
+                    + ",clientImage,clientGender,clientOnline)"
+                    + "values(?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
                 myStatement.setString(1, client.getClientEmail());
                 myStatement.setString(2, client.getClientName());
                 myStatement.setString(3, client.getClientPassword());
@@ -84,7 +83,7 @@ public class DatabaseHandler {
                 myStatement.setString(5, client.getClientImage());
                 myStatement.setString(6, client.getClientGender());
                 myStatement.setInt(7, client.getClientOnline());
-                
+
                 affectedRows = myStatement.executeUpdate();
             }
 
@@ -130,7 +129,7 @@ public class DatabaseHandler {
         int affectedRows = 0;
         try {
             try (PreparedStatement myStatement = con.prepareStatement("delete from client"
-                            + " where clientID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                    + " where clientID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
                 myStatement.setInt(1, clientID);
                 affectedRows = myStatement.executeUpdate();
             }
@@ -148,7 +147,7 @@ public class DatabaseHandler {
         try {
 
             try (PreparedStatement myStatement = con.prepareStatement("select * from client where clientid=?",
-                            ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
                 myStatement.setInt(1, clientID);
                 try (ResultSet resultSet = myStatement.executeQuery()) {
                     while (resultSet.next()) {
@@ -167,7 +166,6 @@ public class DatabaseHandler {
                 }
             }
 
-
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in getting client by ID");
@@ -180,8 +178,8 @@ public class DatabaseHandler {
         try {
 
             try (PreparedStatement myStatement = con.prepareStatement("select * from client where lower(clientEmail)"
-                            + " =lower(?)",
-                            ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                    + " =lower(?)",
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
                 myStatement.setString(1, clientEmail);
                 try (ResultSet resultSet = myStatement.executeQuery()) {
                     while (resultSet.next()) {
@@ -200,7 +198,6 @@ public class DatabaseHandler {
                 }
             }
 
-
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error in getting client by email");
@@ -213,7 +210,7 @@ public class DatabaseHandler {
         try {
 
             try (PreparedStatement myStatement = con.prepareStatement("select * from client",
-                            ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);ResultSet resultSet = myStatement.executeQuery()) {
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); ResultSet resultSet = myStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Client client = new Client();
                     client.setClientBirthdate(resultSet.getDate("clientBirthdate"));
@@ -229,7 +226,6 @@ public class DatabaseHandler {
                     clients.add(client);
                 }
             }
-
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -247,14 +243,14 @@ public class DatabaseHandler {
             for (int count = 0; count < receiverIDs.size(); count++) {
 
                 try (PreparedStatement myStatement = con.prepareStatement("insert into groupChat"
-                                + "(groupID,receiverID,groupCreationDate,clientID,groupName)"
-                                + "values(?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                        + "(groupID,receiverID,groupCreationDate,clientID,groupName)"
+                        + "values(?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
                     myStatement.setInt(1, newGroup.getGroupID());
                     myStatement.setInt(2, receiverIDs.get(count));
                     myStatement.setDate(3, newGroup.getGroupCreationDate());
                     myStatement.setInt(4, newGroup.getClientID());
                     myStatement.setString(5, newGroup.getGroupName());
-                    
+
                     affectedRows = myStatement.executeUpdate();
                 }
 
@@ -279,7 +275,7 @@ public class DatabaseHandler {
         int affectedRows = 0;
         try {
             try (PreparedStatement myStatement = con.prepareStatement("delete from groupChat"
-                            + " where groupID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                    + " where groupID=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
                 myStatement.setInt(1, groupID);
                 affectedRows = myStatement.executeUpdate();
             }
